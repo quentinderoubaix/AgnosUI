@@ -1,6 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"repositories": ["AmadeusITGroup/AgnosUI"],
+	"repositories": ["quentinderoubaix/AgnosUI"],
 	"platform": "github",
 	"extends": ["config:recommended", ":dependencyDashboard", "group:allNonMajor"],
 	"ignorePresets": [":prHourlyLimit2", ":prConcurrentLimit10"],
@@ -37,11 +37,12 @@
 			"groupSlug": "angular-dependencies"
 		},
 		{
-			"matchFileNames": [".github/workflows/*.+(yaml|yml)"],
+			"matchFileNames": [".github/workflows/*.(yaml|yml)"],
 			"groupName": "Github Actions",
 			"groupSlug": "github-actions"
 		}
 	],
 	"allowedPostUpgradeCommands": ["^npm install$", "^cd angular && npm run ng update .*", "^rm package-lock.json$"],
-	"lockFileMaintenance": {"enabled": true, "schedule": ["every weekend"]}
+	"lockFileMaintenance": {"enabled": true, "schedule": ["every weekend"]},
+	"skipInstalls": false
 }
