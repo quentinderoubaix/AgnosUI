@@ -31,6 +31,7 @@
 		"build": {
 			"command": "vite build",
 			"dependencies": [
+				"../headless:build",
 				"../lib:build",
 				"../../style-bootstrap:build"
 			],

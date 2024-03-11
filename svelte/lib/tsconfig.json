@@ -1,4 +1,9 @@
 {
-	"extends": ["../tsconfig.json"],
-	"include": ["src"]
+	"extends": "./tsconfig.build.json",
+	"compilerOptions": {
+		"paths": {
+			"@agnos-ui/core/*": ["./core/src/*"],
+			"@agnos-ui/svelte-headless/*": ["./svelte/headless/src/*", "./svelte/headless/src/generated/*"]
+		}
+	}
 }

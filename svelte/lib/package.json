@@ -68,15 +68,14 @@
 			]
 		},
 		"build:src": {
-			"command": "svelte-package -i src",
+			"command": "svelte-package -i src --tsconfig tsconfig.build.json",
 			"dependencies": [
-				"generate:exports",
-				"../headless:build"
+				"generate:exports"
 			],
 			"files": [
 				"src/**",
 				"!src/generated/**",
-				"tsconfig.json"
+				"tsconfig.build.json"
 			],
 			"output": [
 				"dist/**",
@@ -105,14 +104,14 @@
 			]
 		},
 		"check": {
-			"command": "svelte-check --fail-on-warnings --output human-verbose",
+			"command": "svelte-check --fail-on-warnings --output human-verbose --tsconfig tsconfig.build.json",
 			"dependencies": [
 				"generate:exports",
 				"../headless:build"
 			],
 			"files": [
 				"src/**",
-				"tsconfig.json"
+				"tsconfig.build.json"
 			],
 			"output": []
 		}
