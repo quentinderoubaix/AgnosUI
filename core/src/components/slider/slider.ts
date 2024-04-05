@@ -2,7 +2,7 @@ import type {ReadableSignal, WritableSignal} from '@amadeus-it-group/tansu';
 import {computed, writable} from '@amadeus-it-group/tansu';
 import type {WidgetsCommonPropsAndState} from '../commonProps';
 import {createAttributesDirective, createStoreDirective, mergeDirectives} from '../../utils/directive';
-import type {ConfigValidator, Directive, PropsConfig, SlotContent, Widget, WidgetSlotContext} from '../../types';
+import type {ConfigValidator, Directive, Expand, Merge, PropsConfig, SlotContent, Widget, WidgetSlotContext} from '../../types';
 import {noop} from '../../utils/internal/func';
 import {getDecimalPrecision} from '../../utils/internal/math';
 import {bindableProp, stateStores, writablesForProps} from '../../utils/stores';
@@ -10,8 +10,8 @@ import {typeArray, typeBoolean, typeFunction, typeNumber, typeNumberInRangeFacto
 import {createResizeObserver} from '../../services/resizeObserver';
 
 export type SliderContext = WidgetSlotContext<SliderWidget>;
-export type SliderSlotLabelContext = SliderContext & {value: number};
-export type SliderSlotHandleContext = SliderContext & {item: SliderHandle};
+export type SliderSlotLabelContext = Merge<SliderContext, {value: number}>;
+export type SliderSlotHandleContext = Merge<SliderContext, {item: SliderHandle}>;
 
 export interface ProgressDisplayOptions {
 	/**
@@ -304,7 +304,7 @@ const defaultSliderConfig: SliderProps = {
 	showMinMaxLabels: true,
 	rtl: false,
 	slotStructure: undefined,
-	slotLabel: ({value}) => '' + value,
+	slotLabel: ({value}: SliderSlotLabelContext) => '' + value,
 	slotHandle: undefined,
 };
 

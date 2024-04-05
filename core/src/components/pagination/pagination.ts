@@ -3,7 +3,7 @@ import {INVALID_VALUE} from '../../types';
 import {bindableProp, stateStores, writablesForProps} from '../../utils/stores';
 import {clamp, isNumber} from '../../utils/internal/checks';
 import {typeBoolean, typeFunction, typeNumber, typeString} from '../../utils/writables';
-import type {ConfigValidator, PropsConfig, Widget, SlotContent, WidgetSlotContext} from '../../types';
+import type {ConfigValidator, PropsConfig, Widget, SlotContent, WidgetSlotContext, Merge} from '../../types';
 import {noop} from '../../utils/internal/func';
 import type {WidgetsCommonPropsAndState} from '../commonProps';
 
@@ -15,12 +15,15 @@ export type PaginationContext = WidgetSlotContext<PaginationWidget>;
 /**
  * A type for the slot context of the pagination widget when the slot is the number label
  */
-export interface PaginationNumberContext extends PaginationContext {
-	/**
-	 * Displayed page
-	 */
-	displayedPage: number;
-}
+export type PaginationNumberContext = Merge<
+	PaginationContext,
+	{
+		/**
+		 * Displayed page
+		 */
+		displayedPage: number;
+	}
+>;
 
 export interface PaginationCommonPropsAndState extends WidgetsCommonPropsAndState {
 	/**

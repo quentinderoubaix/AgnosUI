@@ -9,7 +9,7 @@ import {bindableProp, stateStores, writablesForProps} from '../../utils/stores';
 import {typeBoolean, typeFunction, typeNumber, typeString} from '../../utils/writables';
 import type {WidgetsCommonPropsAndState} from '../commonProps';
 
-export interface StarContext {
+export type StarContext = {
 	/**
 	 * indicates how much the current star is filled, from 0 to 100
 	 */
@@ -18,7 +18,7 @@ export interface StarContext {
 	 * the position of the star in the rating
 	 */
 	index: number;
-}
+};
 
 export interface RatingCommonPropsAndState extends WidgetsCommonPropsAndState {
 	/**
@@ -178,7 +178,7 @@ const defaultConfig: RatingProps = {
 	onLeave: noop,
 	onRatingChange: noop,
 	className: '',
-	slotStar: ({fill}) => String.fromCharCode(fill === 100 ? 9733 : 9734),
+	slotStar: ({fill}: StarContext) => String.fromCharCode(fill === 100 ? 9733 : 9734),
 	ariaLabel: 'Rating',
 	ariaLabelledBy: '',
 };

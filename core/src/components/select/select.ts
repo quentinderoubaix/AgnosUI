@@ -7,7 +7,7 @@ import type {HasFocus} from '../../services/focustrack';
 import {createHasFocus} from '../../services/focustrack';
 import type {NavManagerItemConfig} from '../../services/navManager';
 import {createNavManager} from '../../services/navManager';
-import type {Directive, PropsConfig, SlotContent, Widget, WidgetSlotContext} from '../../types';
+import type {Directive, Merge, PropsConfig, SlotContent, Widget, WidgetSlotContext} from '../../types';
 import {bindDirective} from '../../utils/directive';
 import {generateId} from '../../utils/internal/dom';
 import {noop} from '../../utils/internal/func';
@@ -19,12 +19,15 @@ import type {WidgetsCommonPropsAndState} from '../commonProps';
  */
 export type SelectContext<Item> = WidgetSlotContext<SelectWidget<Item>>;
 
-export interface SelectItemContext<Item> extends SelectContext<Item> {
-	/**
-	 * Contextual data related to an item
-	 */
-	itemContext: ItemContext<Item>;
-}
+export type SelectItemContext<Item> = Merge<
+	SelectContext<Item>,
+	{
+		/**
+		 * Contextual data related to an item
+		 */
+		itemContext: ItemContext<Item>;
+	}
+>;
 
 export interface SelectCommonPropsAndState<Item> extends WidgetsCommonPropsAndState {
 	/**
@@ -302,8 +305,6 @@ export interface SelectActions<Item> {
 
 export type SelectWidget<Item> = Widget<SelectProps<Item>, SelectState<Item>, SelectApi<Item>, SelectActions<Item>, SelectDirectives>;
 
-const defaultItemId = (item: any) => '' + item;
-
 export const defaultConfig: SelectProps<any> = {
 	id: undefined,
 	ariaLabel: 'Select',
@@ -314,7 +315,7 @@ export const defaultConfig: SelectProps<any> = {
 	loading: false,
 	selected: [],
 	navSelector: (node: HTMLElement) => node.querySelectorAll('.au-select-badge,input'),
-	itemIdFn: defaultItemId,
+	itemIdFn: (item: any) => '' + item,
 	onOpenChange: noop,
 	onFilterTextChange: noop,
 	onSelectedChange: noop,

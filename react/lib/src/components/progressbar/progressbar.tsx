@@ -27,7 +27,7 @@ const defaultConfig: Partial<ProgressbarProps> = {
 
 export const Progressbar = (props: PropsWithChildren<Partial<ProgressbarProps>>) => {
 	const [state, widget] = useWidgetWithConfig(createProgressbar, props, 'progressbar', {...defaultConfig, slotDefault: props.children});
-	const slotContext: ProgressbarContext = {state, widget: toSlotContextWidget(widget)};
+	const slotContext = {state, widget: toSlotContextWidget(widget)};
 	const refAria = useDirective(widget.directives.ariaDirective);
 	return (
 		<div ref={refAria}>

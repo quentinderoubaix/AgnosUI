@@ -8,7 +8,7 @@ export type ValuesOrWritableSignals<T extends object> = {
 	[K in keyof T]?: WritableSignal<T[K] | undefined> | T[K];
 };
 
-export interface PropsConfig<U extends object> {
+export type PropsConfig<U extends object> = {
 	/**
 	 * Object containing, for each property, either its initial value, or a store that will contain the value at any time.
 	 * When the value of a property is undefined or invalid, the value from the config is used.
@@ -20,7 +20,7 @@ export interface PropsConfig<U extends object> {
 	 * or an object containing, for each property, either a store containing the default value or the default value itself.
 	 */
 	config?: ReadableSignal<Partial<U>> | ValuesOrReadableSignals<Partial<U>>;
-}
+};
 
 export interface Widget<
 	Props extends object = object,
@@ -59,7 +59,10 @@ export interface Widget<
 
 export type ContextWidget<W extends Widget> = Pick<W, 'actions' | 'api' | 'directives' | 'state$' | 'stores'>;
 
-export interface WidgetSlotContext<W extends Widget> {
+export type Expand<T> = T extends infer O ? {[K in keyof O]: O[K]} : never;
+export type Merge<A, B> = Expand<A & B>;
+
+export type WidgetSlotContext<W extends Widget> = {
 	/**
 	 * the state of the widget
 	 */
@@ -68,7 +71,7 @@ export interface WidgetSlotContext<W extends Widget> {
 	 * the widget
 	 */
 	widget: ContextWidget<W>;
-}
+};
 
 /**
  * Extract actions, api, directives, state and stores from the widget to be passed to slots as context.
