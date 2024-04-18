@@ -52,11 +52,11 @@ const DefaultSlotStructure = (slotContext: AccordionItemContext) => {
 		</>
 	);
 };
-const defaultConfig: Partial<AccordionItemProps> = {
+const defaultConfig: AccordionItemProps = {
 	slotItemStructure: DefaultSlotStructure,
 };
-export const AccordionItem: ForwardRefExoticComponent<PropsWithChildren<Partial<AccordionItemProps>> & RefAttributes<AccordionItemApi>> = forwardRef(
-	function AccordionItem(props: PropsWithChildren<Partial<AccordionItemProps>>, ref: ForwardedRef<AccordionItemApi>) {
+export const AccordionItem: ForwardRefExoticComponent<PropsWithChildren<AccordionItemProps> & RefAttributes<AccordionItemApi>> = forwardRef(
+	function AccordionItem(props: PropsWithChildren<AccordionItemProps>, ref: ForwardedRef<AccordionItemApi>) {
 		const {registerItem} = useContext(AccordionDIContext);
 		const [state, widget] = useWidgetWithConfig(registerItem as WidgetFactory<AccordionItemWidget>, props, null, {
 			...defaultConfig,
@@ -77,16 +77,17 @@ export const AccordionItem: ForwardRefExoticComponent<PropsWithChildren<Partial<
 	},
 );
 
-export const Accordion: ForwardRefExoticComponent<PropsWithChildren<Partial<AccordionProps>> & RefAttributes<AccordionApi>> = forwardRef(
-	function Accordion(props: PropsWithChildren<Partial<AccordionProps>>, ref: ForwardedRef<AccordionApi>) {
-		const widget = useWidgetWithConfig(createAccordion, props, 'accordion')[1];
-		useImperativeHandle(ref, () => widget.api, []);
-		return (
-			<AccordionDIContext.Provider value={widget.api}>
-				<div className="accordion" {...useDirective(widget.directives.accordionDirective)}>
-					{props.children}
-				</div>
-			</AccordionDIContext.Provider>
-		);
-	},
-);
+export const Accordion: ForwardRefExoticComponent<PropsWithChildren<AccordionProps> & RefAttributes<AccordionApi>> = forwardRef(function Accordion(
+	props: PropsWithChildren<AccordionProps>,
+	ref: ForwardedRef<AccordionApi>,
+) {
+	const widget = useWidgetWithConfig(createAccordion, props, 'accordion')[1];
+	useImperativeHandle(ref, () => widget.api, []);
+	return (
+		<AccordionDIContext.Provider value={widget.api}>
+			<div className="accordion" {...useDirective(widget.directives.accordionDirective)}>
+				{props.children}
+			</div>
+		</AccordionDIContext.Provider>
+	);
+});

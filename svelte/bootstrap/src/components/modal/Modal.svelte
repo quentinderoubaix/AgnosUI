@@ -7,7 +7,7 @@
 	import ModalDefaultHeader from './ModalDefaultHeader.svelte';
 	import ModalDefaultStructure from './ModalDefaultStructure.svelte';
 
-	const defaultConfig: Partial<Props<any>> = {
+	const defaultConfig: Props<any> = {
 		slotStructure: ModalDefaultStructure,
 		slotHeader: ModalDefaultHeader,
 	};
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 	type Data = $$Generic; // eslint-disable-line no-undef
-	type $$Props = Partial<Props<Data>>;
+	type $$Props = Props<Data>;
 	type $$Slots = Slots<Data>;
 
 	export let visible: boolean | undefined = undefined;

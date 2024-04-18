@@ -127,8 +127,7 @@ export class SliderDefaultStructureSlotComponent {
 
 export const sliderDefaultSlotStructure = new ComponentTemplate(SliderDefaultStructureSlotComponent, 'structure');
 
-export type PartialSliderProps = Partial<SliderProps>;
-const defaultConfig: PartialSliderProps = {
+const defaultConfig: SliderProps = {
 	slotStructure: sliderDefaultSlotStructure,
 	slotHandle: sliderDefaultSlotHandle,
 };

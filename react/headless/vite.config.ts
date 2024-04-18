@@ -2,6 +2,7 @@ import {glob} from 'glob';
 import type {UserConfig} from 'vite';
 import {defineConfig} from 'vite';
 import {peerDependencies, dependencies, exports as pkgExports} from './package.json';
+import dts from 'vite-plugin-dts';
 
 const pathRegExp = /\\/g;
 const normalizePath = (str: string) => str.replace(pathRegExp, '/');
@@ -34,5 +35,6 @@ export default defineConfig(async (): Promise<UserConfig> => {
 					externalDependencies.some((externalDependency) => dependency === externalDependency || dependency.startsWith(`${externalDependency}/`)),
 			},
 		},
+		plugins: [dts({tsconfigPath: 'tsconfig.build.json'})],
 	};
 });

@@ -6,14 +6,14 @@
 	import SliderDefaultStructure from './SliderDefaultStructure.svelte';
 	import SliderDefaultHandle from './SliderDefaultHandle.svelte';
 
-	const defaultConfig: Partial<Props> = {
+	const defaultConfig: Props = {
 		slotStructure: SliderDefaultStructure,
 		slotHandle: SliderDefaultHandle,
 	};
 </script>
 
 <script lang="ts">
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = Slots;
 
 	export let values: number[] | undefined = undefined;

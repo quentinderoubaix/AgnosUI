@@ -7,14 +7,14 @@
 	import PaginationDefaultPages from './PaginationDefaultPages.svelte';
 	import PaginationDefaultStructure from './PaginationDefaultStructure.svelte';
 
-	const defaultConfig: Partial<Props> = {
+	const defaultConfig: Props = {
 		slotStructure: PaginationDefaultStructure,
 		slotPages: PaginationDefaultPages,
 	};
 </script>
 
 <script lang="ts">
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = Slots;
 
 	/**

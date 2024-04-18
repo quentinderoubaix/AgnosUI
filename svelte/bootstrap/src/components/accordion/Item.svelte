@@ -7,13 +7,13 @@
 	import ItemDefaultStructure from './ItemDefaultStructure.svelte';
 	import {getAccordionApi} from './accordion';
 
-	const defaultConfig: Partial<Props> = {
+	const defaultConfig: Props = {
 		slotItemStructure: ItemDefaultStructure,
 	};
 </script>
 
 <script lang="ts">
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = Slots;
 
 	const accordionApi = getAccordionApi();

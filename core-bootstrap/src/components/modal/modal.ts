@@ -6,7 +6,7 @@ import {extendWidgetProps} from '@agnos-ui/core/services/extendWidget';
 
 export * from '@agnos-ui/core/components/modal';
 
-const coreOverride: Partial<ModalProps<any>> = {
+const coreOverride: ModalProps<any> = {
 	backdropTransition: fadeTransition,
 	modalTransition: fadeTransition,
 };

@@ -70,7 +70,7 @@ export interface RatingCommonPropsAndState extends WidgetsCommonPropsAndState {
 	ariaLabelledBy: string;
 }
 
-export interface RatingProps extends RatingCommonPropsAndState {
+export interface RatingConfig extends RatingCommonPropsAndState {
 	/**
 	 * Return the value for the 'aria-valuetext' attribute.
 	 * @param rating - Current rating value.
@@ -99,6 +99,7 @@ export interface RatingProps extends RatingCommonPropsAndState {
 	 */
 	onLeave: (rating: number) => void;
 }
+export interface RatingProps extends Partial<RatingConfig> {}
 
 export interface RatingDirectives {
 	/**
@@ -166,7 +167,7 @@ export interface RatingActions {
 
 export type RatingWidget = Widget<RatingProps, RatingState, object, RatingActions, RatingDirectives>;
 
-const defaultConfig: RatingProps = {
+const defaultConfig: RatingConfig = {
 	rating: 0,
 	tabindex: 0,
 	maxRating: 10,
@@ -187,12 +188,12 @@ const defaultConfig: RatingProps = {
  * Returns a shallow copy of the default rating config.
  * @returns a copy of the default config
  */
-export function getRatingDefaultConfig() {
+export function getRatingDefaultConfig(): RatingConfig {
 	return {...defaultConfig};
 }
 
 // TODO export normalize function in utils and test them.
-const configValidator: ConfigValidator<RatingProps> = {
+const configValidator: ConfigValidator<RatingConfig> = {
 	rating: typeNumber,
 	tabindex: typeNumber,
 	maxRating: {normalizeValue: (value) => (isNumber(value) ? Math.max(0, value) : INVALID_VALUE)},

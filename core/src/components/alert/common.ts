@@ -33,7 +33,7 @@ export interface CommonAlertState extends CommonAlertCommonPropsAndState {
 	hidden: boolean;
 }
 
-export interface CommonAlertProps extends CommonAlertCommonPropsAndState {
+export interface CommonAlertConfig extends CommonAlertCommonPropsAndState {
 	/**
 	 * Callback called when the alert visibility changed.
 	 */
@@ -71,6 +71,7 @@ export interface CommonAlertProps extends CommonAlertCommonPropsAndState {
 	 */
 	animated: boolean;
 }
+export interface CommonAlertProps extends Partial<CommonAlertConfig> {}
 
 export interface CommonAlertApi {
 	/**
@@ -93,7 +94,7 @@ export interface CommonAlertDirectives {
 
 export type CommonAlertWidget = Widget<CommonAlertProps, CommonAlertState, CommonAlertApi, object, CommonAlertDirectives>;
 
-export const defaultCommonAlertConfig: CommonAlertProps = {
+export const defaultCommonAlertConfig: CommonAlertConfig = {
 	visible: true,
 	dismissible: true,
 	ariaCloseButtonLabel: 'Close',
@@ -110,11 +111,11 @@ export const defaultCommonAlertConfig: CommonAlertProps = {
  * Retrieve a shallow copy of the default alert config
  * @returns the default alert config
  */
-export function getCommonAlertDefaultConfig(): CommonAlertProps {
+export function getCommonAlertDefaultConfig(): CommonAlertConfig {
 	return {...defaultCommonAlertConfig};
 }
 
-export const commonAlertConfigValidator: ConfigValidator<CommonAlertProps> = {
+export const commonAlertConfigValidator: ConfigValidator<CommonAlertConfig> = {
 	dismissible: typeBoolean,
 };
 

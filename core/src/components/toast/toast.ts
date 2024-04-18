@@ -4,7 +4,7 @@ import {extendWidgetProps} from '../../services/extendWidget';
 import type {ConfigValidator, Directive, PropsConfig, Widget, WidgetSlotContext} from '../../types';
 import {createAttributesDirective, directiveSubscribe} from '../../utils/directive';
 import {typeBoolean, typeNumberInRangeFactory} from '../../utils/writables';
-import type {CommonAlertApi, CommonAlertDirectives, CommonAlertProps, CommonAlertState, CommonAlertWidget} from '../alert/common';
+import type {CommonAlertApi, CommonAlertConfig, CommonAlertDirectives, CommonAlertProps, CommonAlertState, CommonAlertWidget} from '../alert/common';
 import {createCommonAlert, getCommonAlertDefaultConfig} from '../alert/common';
 
 export type ToastContext = WidgetSlotContext<ToastWidget>;
@@ -37,7 +37,8 @@ export interface ExtraDirectives {
 
 export interface ToastState extends ExtendWidgetAdaptSlotWidgetProps<CommonAlertState, ToastExtraProps, ExtraDirectives> {}
 
-export interface ToastProps extends ExtendWidgetAdaptSlotWidgetProps<CommonAlertProps, ToastExtraProps, ExtraDirectives> {}
+export interface ToastConfig extends ExtendWidgetAdaptSlotWidgetProps<CommonAlertConfig, ToastExtraProps, ExtraDirectives> {}
+export interface ToastProps extends Partial<ToastConfig> {}
 
 export interface ToastApi extends CommonAlertApi {}
 

@@ -130,7 +130,7 @@ export const modalDefaultSlotHeader = new ComponentTemplate(ModalDefaultSlotsCom
  */
 export const modalDefaultSlotStructure = new ComponentTemplate(ModalDefaultSlotsComponent, 'structure');
 
-const defaultConfig: Partial<ModalProps<any>> = {
+const defaultConfig: ModalProps<any> = {
 	slotHeader: modalDefaultSlotHeader,
 	slotStructure: modalDefaultSlotStructure,
 };

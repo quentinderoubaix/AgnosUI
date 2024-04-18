@@ -12,7 +12,7 @@ export class ModalService {
 	private readonly _injector = inject(Injector);
 	private readonly _applicationRef = inject(ApplicationRef);
 
-	async open<Data>(options: Partial<ModalProps<Data>>, {injector = this._injector}: ModalServiceOpenOptions = {}): Promise<any> {
+	async open<Data>(options: ModalProps<Data>, {injector = this._injector}: ModalServiceOpenOptions = {}): Promise<any> {
 		const component = createComponent(ModalComponent, {
 			environmentInjector: injector.get(EnvironmentInjector),
 			elementInjector: injector,

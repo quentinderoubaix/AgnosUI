@@ -119,7 +119,7 @@ export interface ModalBeforeCloseEvent {
 /**
  * Properties of the modal widget.
  */
-export interface ModalProps<Data> extends ModalCommonPropsAndState<Data> {
+export interface ModalConfig<Data> extends ModalCommonPropsAndState<Data> {
 	/**
 	 * Whether the modal and its backdrop (if present) should be animated when shown or hidden.
 	 */
@@ -170,6 +170,7 @@ export interface ModalProps<Data> extends ModalCommonPropsAndState<Data> {
 	 */
 	onShown: () => void;
 }
+export interface ModalProps<Data> extends Partial<ModalConfig<Data>> {}
 
 /**
  * State of the modal widget.
@@ -277,7 +278,7 @@ export interface ModalDirectives {
  */
 export type ModalWidget<Data> = Widget<ModalProps<Data>, ModalState<Data>, ModalApi<Data>, ModalActions, ModalDirectives>;
 
-const defaultConfig: ModalProps<any> = {
+const defaultConfig: ModalConfig<any> = {
 	animated: true,
 	ariaCloseButtonLabel: 'Close',
 	backdrop: true,
@@ -301,7 +302,7 @@ const defaultConfig: ModalProps<any> = {
 	contentData: undefined,
 };
 
-const configValidator: ConfigValidator<ModalProps<any>> = {
+const configValidator: ConfigValidator<ModalConfig<any>> = {
 	animated: typeBoolean,
 	ariaCloseButtonLabel: typeString,
 	backdrop: typeBoolean,
@@ -323,7 +324,7 @@ const configValidator: ConfigValidator<ModalProps<any>> = {
  * Returns a copy of the default modal config.
  * @returns a copy of the default modal config
  */
-export function getModalDefaultConfig() {
+export function getModalDefaultConfig(): ModalConfig<any> {
 	return {...defaultConfig};
 }
 

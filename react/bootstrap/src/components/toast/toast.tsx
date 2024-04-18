@@ -36,12 +36,12 @@ const DefaultSlotStructure = (slotContext: ToastContext) => {
 	);
 };
 
-const defaultConfig: Partial<ToastProps> = {
+const defaultConfig: ToastProps = {
 	slotStructure: DefaultSlotStructure,
 };
 
-export const Toast: ForwardRefExoticComponent<PropsWithChildren<Partial<ToastProps>> & RefAttributes<ToastApi>> = forwardRef(function Toast(
-	props: PropsWithChildren<Partial<ToastProps>>,
+export const Toast: ForwardRefExoticComponent<PropsWithChildren<ToastProps> & RefAttributes<ToastApi>> = forwardRef(function Toast(
+	props: PropsWithChildren<ToastProps>,
 	ref,
 ) {
 	const [state, widget] = useWidgetWithConfig(createToast, props, 'toast', {...defaultConfig, slotDefault: props.children});

@@ -4,13 +4,13 @@
 	import {callWidgetFactory} from '../../config';
 	import AlertDefaultStructure from './AlertDefaultStructure.svelte';
 
-	const defaultConfig: Partial<Props> = {
+	const defaultConfig: Props = {
 		slotStructure: AlertDefaultStructure,
 	};
 </script>
 
 <script lang="ts">
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = Slots;
 
 	const widget = callWidgetFactory({

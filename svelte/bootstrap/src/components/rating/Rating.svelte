@@ -7,7 +7,7 @@
 </script>
 
 <script lang="ts">
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = Slots;
 
 	export let rating: number | undefined = undefined;

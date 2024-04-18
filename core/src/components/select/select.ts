@@ -7,7 +7,7 @@ import type {HasFocus} from '../../services/focustrack';
 import {createHasFocus} from '../../services/focustrack';
 import type {NavManagerItemConfig} from '../../services/navManager';
 import {createNavManager} from '../../services/navManager';
-import type {Directive, PropsConfig, SlotContent, Widget, WidgetSlotContext} from '../../types';
+import type {ConfigValidator, Directive, PropsConfig, SlotContent, Widget, WidgetSlotContext} from '../../types';
 import {bindDirective} from '../../utils/directive';
 import {generateId} from '../../utils/internal/dom';
 import {noop} from '../../utils/internal/func';
@@ -90,7 +90,7 @@ export interface SelectCommonPropsAndState<Item> extends WidgetsCommonPropsAndSt
 	slotItem: SlotContent<SelectItemContext<Item>>;
 }
 
-export interface SelectProps<T> extends SelectCommonPropsAndState<T> {
+export interface SelectConfig<T> extends SelectCommonPropsAndState<T> {
 	/**
 	 * List of available items for the dropdown
 	 */
@@ -134,6 +134,7 @@ export interface SelectProps<T> extends SelectCommonPropsAndState<T> {
 	 */
 	onSelectedChange(selected: T[]): void;
 }
+export interface SelectProps<T> extends Partial<SelectConfig<T>> {}
 
 /**
  * Item representation built from the items provided in parameters
@@ -302,7 +303,7 @@ export interface SelectActions<Item> {
 
 export type SelectWidget<Item> = Widget<SelectProps<Item>, SelectState<Item>, SelectApi<Item>, SelectActions<Item>, SelectDirectives>;
 
-export const defaultConfig: SelectProps<any> = {
+export const defaultConfig: SelectConfig<any> = {
 	id: undefined,
 	ariaLabel: 'Select',
 	open: false,
@@ -329,7 +330,7 @@ export const defaultConfig: SelectProps<any> = {
  * Returns a shallow copy of the default select config.
  * @returns a copy of the default config
  */
-export function getSelectDefaultConfig() {
+export function getSelectDefaultConfig(): SelectConfig<any> {
 	return {...defaultConfig};
 }
 
@@ -355,7 +356,7 @@ export function createSelect<Item>(config?: PropsConfig<SelectProps<Item>>): Sel
 			...stateProps
 		},
 		patch,
-	] = writablesForProps<SelectProps<Item>>(defaultConfig, config);
+	] = writablesForProps<SelectConfig<Item>>(defaultConfig, config);
 	const {selected$} = stateProps;
 
 	const id$ = computed(() => _dirtyId$() ?? generateId());

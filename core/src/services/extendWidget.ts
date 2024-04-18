@@ -6,7 +6,7 @@ import type {ConfigValidator, PropsConfig, SlotContent, Widget, WidgetFactory, W
  * Type extending the original Widget props and state with ExtraProps
  */
 export type ExtendWidgetProps<W extends Widget, ExtraProps extends object, ExtraDirectives extends object = object> = Widget<
-	ExtendWidgetAdaptSlotWidgetProps<WidgetProps<W>, ExtraProps, ExtraDirectives>,
+	ExtendWidgetAdaptSlotWidgetProps<WidgetProps<W>, Partial<ExtraProps>, ExtraDirectives>,
 	ExtendWidgetAdaptSlotWidgetProps<WidgetState<W>, ExtraProps, ExtraDirectives>,
 	W['api'],
 	W['actions'],
@@ -49,10 +49,10 @@ export const extendWidgetProps =
 		factory: WidgetFactory<W>,
 		extraPropsDefaults: ExtraProps,
 		extraPropsConfig?: ConfigValidator<ExtraProps>,
-		overrideDefaults?: Partial<WidgetState<W>>,
+		overrideDefaults?: WidgetProps<W>,
 	): WidgetFactory<ExtendWidgetProps<W, ExtraProps, ExtraDirectives>> =>
 	(propsConfig) => {
-		const extraPropsWritables = writablesWithDefault(extraPropsDefaults, propsConfig as PropsConfig<ExtraProps>, extraPropsConfig);
+		const extraPropsWritables = writablesWithDefault(extraPropsDefaults, propsConfig as PropsConfig<Partial<ExtraProps>>, extraPropsConfig);
 		const propsConfigConfig = propsConfig?.config;
 		const config = isStore(propsConfigConfig)
 			? computed(() => ({...overrideDefaults, ...propsConfigConfig()}))

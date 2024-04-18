@@ -60,8 +60,7 @@ export class AlertDefaultSlotsComponent {
 
 export const alertDefaultSlotStructure = new ComponentTemplate(AlertDefaultSlotsComponent, 'structure');
 
-export type PartialAlertProps = Partial<AlertProps>;
-const defaultConfig: PartialAlertProps = {
+const defaultConfig: AlertProps = {
 	slotStructure: alertDefaultSlotStructure,
 };
 

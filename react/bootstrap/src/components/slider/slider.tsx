@@ -95,12 +95,12 @@ export const DefaultSlotStructure = (slotContext: SliderContext) => {
 	);
 };
 
-const defaultConfig: Partial<SliderProps> = {
+const defaultConfig: SliderProps = {
 	slotStructure: DefaultSlotStructure,
 	slotHandle: DefaultSlotHandle,
 };
 
-export function Slider(props: PropsWithChildren<Partial<SliderProps>>) {
+export function Slider(props: PropsWithChildren<SliderProps>) {
 	const [state, widget] = useWidgetWithConfig(createSlider, props, 'slider', {...defaultConfig});
 	const slotContext: SliderContext = {state, widget: toSlotContextWidget(widget)};
 

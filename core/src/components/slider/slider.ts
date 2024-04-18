@@ -189,7 +189,7 @@ export interface SliderState extends SliderCommonPropsAndState {
 	interactive: boolean;
 }
 
-export interface SliderProps extends SliderCommonPropsAndState {
+export interface SliderConfig extends SliderCommonPropsAndState {
 	/**
 	 * Return the value for the 'aria-label' attribute for the handle
 	 * @param value - value of the handle
@@ -213,6 +213,7 @@ export interface SliderProps extends SliderCommonPropsAndState {
 	 */
 	onValuesChange: (values: number[]) => void;
 }
+export interface SliderProps extends Partial<SliderConfig> {}
 
 export interface SliderApi {}
 
@@ -288,7 +289,7 @@ export interface SliderActions {
 
 export type SliderWidget = Widget<SliderProps, SliderState, SliderApi, SliderActions, SliderDirectives>;
 
-const defaultSliderConfig: SliderProps = {
+const defaultSliderConfig: SliderConfig = {
 	min: 0,
 	max: 100,
 	stepSize: 1,
@@ -312,11 +313,11 @@ const defaultSliderConfig: SliderProps = {
  * Returns a shallow copy of the default slider config.
  * @returns a copy of the default config
  */
-export function getSliderDefaultConfig() {
+export function getSliderDefaultConfig(): SliderConfig {
 	return {...defaultSliderConfig};
 }
 
-const configValidator: ConfigValidator<SliderProps> = {
+const configValidator: ConfigValidator<SliderConfig> = {
 	min: typeNumber,
 	max: typeNumber,
 	stepSize: typeNumberInRangeFactory(0, +Infinity, {strict: true}),

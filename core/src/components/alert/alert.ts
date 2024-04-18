@@ -1,10 +1,11 @@
-import type {CommonAlertApi, CommonAlertDirectives, CommonAlertProps, CommonAlertState} from './common';
+import type {CommonAlertApi, CommonAlertConfig, CommonAlertDirectives, CommonAlertProps, CommonAlertState} from './common';
 import {createCommonAlert, getCommonAlertDefaultConfig} from './common';
 import type {Widget, WidgetFactory, WidgetSlotContext} from '../../types';
 
 export type AlertContext = WidgetSlotContext<AlertWidget>;
 export interface AlertState extends CommonAlertState {}
 export interface AlertProps extends CommonAlertProps {}
+export interface AlertConfig extends CommonAlertConfig {}
 export interface AlertApi extends CommonAlertApi {}
 export interface AlertDirectives extends CommonAlertDirectives {}
 export type AlertWidget = Widget<AlertProps, AlertState, AlertApi, object, AlertDirectives>;
@@ -13,7 +14,7 @@ export type AlertWidget = Widget<AlertProps, AlertState, AlertApi, object, Alert
  * Retrieve a shallow copy of the default alert config
  * @returns the default alert config
  */
-export function getAlertDefaultConfig(): AlertProps {
+export function getAlertDefaultConfig(): AlertConfig {
 	return {...getCommonAlertDefaultConfig()};
 }
 

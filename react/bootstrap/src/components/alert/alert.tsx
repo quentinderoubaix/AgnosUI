@@ -26,12 +26,12 @@ const DefaultSlotStructure = (slotContext: AlertContext) => (
 	</>
 );
 
-const defaultConfig: Partial<AlertProps> = {
+const defaultConfig: AlertProps = {
 	slotStructure: DefaultSlotStructure,
 };
 
-export const Alert: ForwardRefExoticComponent<PropsWithChildren<Partial<AlertProps>> & RefAttributes<AlertApi>> = forwardRef(function Alert(
-	props: PropsWithChildren<Partial<AlertProps>>,
+export const Alert: ForwardRefExoticComponent<PropsWithChildren<AlertProps> & RefAttributes<AlertApi>> = forwardRef(function Alert(
+	props: PropsWithChildren<AlertProps>,
 	ref: ForwardedRef<AlertApi>,
 ) {
 	const [state, widget] = useWidgetWithConfig(createAlert, props, 'alert', {...defaultConfig, slotDefault: props.children});

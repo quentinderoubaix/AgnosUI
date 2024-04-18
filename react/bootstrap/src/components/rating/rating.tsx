@@ -24,7 +24,7 @@ function Star({star, state, directive}: {star: StarContext; state: RatingState; 
 	);
 }
 
-export function Rating(props: Partial<RatingProps>) {
+export function Rating(props: RatingProps) {
 	const [state, widget] = useWidgetWithConfig(createRating, props, 'rating');
 
 	const {

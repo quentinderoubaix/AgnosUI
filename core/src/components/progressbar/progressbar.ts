@@ -56,7 +56,7 @@ export interface ProgressbarState extends ProgressbarCommonPropsAndState {
 	ariaValueText: string | undefined;
 }
 
-export interface ProgressbarProps extends ProgressbarCommonPropsAndState {
+export interface ProgressbarConfig extends ProgressbarCommonPropsAndState {
 	/**
 	 * Return the value for the 'aria-valuetext' attribute.
 	 * @param value - current value
@@ -66,12 +66,14 @@ export interface ProgressbarProps extends ProgressbarCommonPropsAndState {
 	ariaValueTextFn: (value: number, minimum: number, maximum: number) => string | undefined;
 }
 
+export interface ProgressbarProps extends Partial<ProgressbarConfig> {}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ProgressbarApi {}
 
 export type ProgressbarWidget = Widget<ProgressbarProps, ProgressbarState, ProgressbarApi, object, ProgressbarDirectives>;
 
-const defaultConfig: ProgressbarProps = {
+const defaultConfig: ProgressbarConfig = {
 	min: 0,
 	max: 100,
 	value: 0,
@@ -84,11 +86,11 @@ const defaultConfig: ProgressbarProps = {
  * Retrieve a shallow copy of the default Progressbar config
  * @returns the default Progressbar config
  */
-export function getProgressbarDefaultConfig(): ProgressbarProps {
+export function getProgressbarDefaultConfig(): ProgressbarConfig {
 	return {...defaultConfig};
 }
 
-const configValidator: ConfigValidator<ProgressbarProps> = {
+const configValidator: ConfigValidator<ProgressbarConfig> = {
 	min: typeNumber,
 	max: typeNumber,
 	value: typeNumber,

@@ -28,11 +28,11 @@ function DefaultSlotContent(slotContext: ProgressbarContext) {
 	);
 }
 
-const defaultConfig: Partial<ProgressbarProps> = {
+const defaultConfig: ProgressbarProps = {
 	slotStructure: DefaultSlotContent,
 };
 
-export const Progressbar = (props: PropsWithChildren<Partial<ProgressbarProps>>) => {
+export const Progressbar = (props: PropsWithChildren<ProgressbarProps>) => {
 	const [state, widget] = useWidgetWithConfig(createProgressbar, props, 'progressbar', {...defaultConfig, slotDefault: props.children});
 	const slotContext: ProgressbarContext = {state, widget: toSlotContextWidget(widget)};
 	return (

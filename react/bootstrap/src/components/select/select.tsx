@@ -82,12 +82,12 @@ function Rows<Item>({slotContext}: {slotContext: SelectContext<Item>}) {
 	);
 }
 
-const defaultConfig: Partial<SelectProps<any>> = {
+const defaultConfig: SelectProps<any> = {
 	slotBadgeLabel: DefaultBadge,
 	slotItem: DefaultItem,
 };
 
-export function Select<Item>(props: Partial<SelectProps<Item>>) {
+export function Select<Item>(props: SelectProps<Item>) {
 	const [state, widget] = useWidgetWithConfig<SelectWidget<Item>>(createSelect, props, 'select', defaultConfig);
 	const slotContext: SelectContext<Item> = {state, widget: toSlotContextWidget(widget)};
 	const {id, ariaLabel, visibleItems, filterText, open, className, menuClassName, placement} = state;

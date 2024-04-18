@@ -36,7 +36,7 @@ const defaultConfigExtraProps: AlertExtraProps = {
 	slotDefault: undefined,
 	type: 'primary',
 };
-const coreOverride: Partial<CoreProps> = {
+const coreOverride: CoreProps = {
 	transition: fadeTransition,
 };
 const configValidator: ConfigValidator<AlertExtraProps> = {

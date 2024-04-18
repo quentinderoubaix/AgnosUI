@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts">
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = {default: Record<string, never>} & Slots;
 
 	export let itemVisible: boolean | undefined = undefined;

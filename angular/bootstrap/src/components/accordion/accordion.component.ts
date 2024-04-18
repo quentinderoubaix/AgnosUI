@@ -134,7 +134,7 @@ export class AccordionItemDefaultSlotsComponent {
 }
 export const accordionItemDefaultSlotItemStructure = new ComponentTemplate(AccordionItemDefaultSlotsComponent, 'structure');
 
-const defaultConfig: Partial<AccordionItemProps> = {
+const defaultConfig: AccordionItemProps = {
 	slotItemStructure: accordionItemDefaultSlotItemStructure,
 };
 

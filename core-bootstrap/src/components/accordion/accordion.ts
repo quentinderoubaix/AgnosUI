@@ -5,7 +5,7 @@ import {extendWidgetProps} from '@agnos-ui/core/services/extendWidget';
 
 export * from '@agnos-ui/core/components/accordion';
 
-const coreOverride: Partial<AccordionProps> = {
+const coreOverride: AccordionProps = {
 	itemTransition: collapseVerticalTransition,
 };
 

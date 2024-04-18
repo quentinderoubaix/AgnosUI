@@ -34,7 +34,7 @@ function getItem(items: AccordionItemWidget[], itemId: string): AccordionItemWid
 	return items.find((item) => item.state$().itemId === itemId);
 }
 
-export interface AccordionProps extends WidgetsCommonPropsAndState {
+export interface AccordionConfig extends WidgetsCommonPropsAndState {
 	/**
 	 * If `true`, only one accordion-item at the time can stay open.
 	 */
@@ -168,6 +168,7 @@ export interface AccordionProps extends WidgetsCommonPropsAndState {
 	 */
 	itemHeadingTag: string;
 }
+export interface AccordionProps extends Partial<AccordionConfig> {}
 
 export interface AccordionState extends WidgetsCommonPropsAndState {
 	/**
@@ -335,7 +336,7 @@ export interface AccordionItemCommonPropsAndState {
 	itemHeadingTag: string;
 }
 
-export interface AccordionItemProps extends AccordionItemCommonPropsAndState {
+export interface AccordionItemConfig extends AccordionItemCommonPropsAndState {
 	/**
 	 * If `true`, accordion-item will be animated.
 	 */
@@ -363,6 +364,7 @@ export interface AccordionItemProps extends AccordionItemCommonPropsAndState {
 	 */
 	onItemVisibleChange: (visible: boolean) => void;
 }
+export interface AccordionItemProps extends Partial<AccordionItemConfig> {}
 
 export interface AccordionItemState extends AccordionItemCommonPropsAndState {
 	/**
@@ -374,7 +376,7 @@ export interface AccordionItemState extends AccordionItemCommonPropsAndState {
 
 export type AccordionItemWidget = Widget<AccordionItemProps, AccordionItemState, AccordionItemApi, AccordionItemActions, AccordionItemDirectives>;
 
-const defaultAccordionConfig: AccordionProps = {
+const defaultAccordionConfig: AccordionConfig = {
 	closeOthers: false,
 	onShown: noop,
 	onHidden: noop,
@@ -399,7 +401,7 @@ const defaultAccordionConfig: AccordionProps = {
 	itemBodyClass: '',
 };
 
-const defaultItemConfig: AccordionItemProps = {
+const defaultItemConfig: AccordionItemConfig = {
 	itemId: defaultAccordionConfig.itemId,
 	itemDestroyOnHide: defaultAccordionConfig.itemDestroyOnHide,
 	itemDisabled: defaultAccordionConfig.itemDisabled,
@@ -429,7 +431,7 @@ export function getAccordionDefaultConfig(): AccordionProps {
 	return {...defaultAccordionConfig};
 }
 
-const configAccordionValidator: ConfigValidator<AccordionProps> = {
+const configAccordionValidator: ConfigValidator<AccordionConfig> = {
 	closeOthers: typeBoolean,
 	onShown: typeFunction,
 	onHidden: typeFunction,
@@ -450,7 +452,7 @@ const configAccordionValidator: ConfigValidator<AccordionProps> = {
 	itemHeadingTag: typeString,
 };
 
-const configItemValidator: ConfigValidator<AccordionItemProps> = {
+const configItemValidator: ConfigValidator<AccordionItemConfig> = {
 	itemId: typeString,
 	itemDestroyOnHide: typeBoolean,
 	itemDisabled: typeBoolean,

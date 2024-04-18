@@ -5,13 +5,13 @@
 	import {callWidgetFactory} from '../../config';
 	import ToastDefaultStructure from './ToastDefaultStructure.svelte';
 
-	const defaultConfig: Partial<Props> = {
+	const defaultConfig: Props = {
 		slotStructure: ToastDefaultStructure,
 	};
 </script>
 
 <script lang="ts">
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = Slots;
 
 	const widget = callWidgetFactory({

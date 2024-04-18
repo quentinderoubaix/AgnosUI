@@ -150,7 +150,7 @@ export const toWritableStore = <T>(x: WritableSignal<T> | T) => (isStore(x) ? x 
  */
 export const normalizeConfigStores = <T extends object>(
 	keys: (keyof T)[],
-	config?: ReadableSignal<Partial<T>> | ValuesOrReadableSignals<T>,
+	config?: ReadableSignal<Partial<T>> | ValuesOrReadableSignals<Partial<T>>,
 ): ReadableSignals<T> => {
 	const res: ReadableSignals<T> = {};
 	if (config) {
@@ -211,7 +211,7 @@ export const mergeConfigStores = <T extends object>(keys: (keyof T)[], config1?:
  */
 export const writablesWithDefault = <T extends object>(
 	defConfig: T,
-	propsConfig?: PropsConfig<T>,
+	propsConfig?: PropsConfig<Partial<T>>,
 	options?: ConfigValidator<T>,
 ): ToWritableSignal<T> => {
 	const res: any = {};
@@ -253,7 +253,7 @@ export const writablesWithDefault = <T extends object>(
  */
 export const writablesForProps = <T extends object>(
 	defConfig: T,
-	propsConfig?: PropsConfig<T>,
+	propsConfig?: PropsConfig<Partial<T>>,
 	options?: {[K in keyof T]?: WritableWithDefaultOptions<T[K]>},
 ): [ToWritableSignal<T>, ReturnType<typeof createPatch<T>>] => {
 	const stores = writablesWithDefault(defConfig, propsConfig, options);

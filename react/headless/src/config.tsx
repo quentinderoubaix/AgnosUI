@@ -28,7 +28,7 @@ type DefaultConfigInput<Config> = Partial2Levels<Config> & {
 export const widgetsConfigFactory = <Config extends {[widgetName: string]: object} = WidgetsConfig>(
 	widgetsConfigContext = createContext(undefined as undefined | WidgetsConfigStore<Config>),
 ) => {
-	const useWidgetContext = <Props extends object>(widgetName: keyof Config | null, defaultConfig?: Partial<Props>) => {
+	const useWidgetContext = <Props extends Partial<object>>(widgetName: keyof Config | null, defaultConfig?: Props) => {
 		const widgetsConfig = useContext(widgetsConfigContext);
 		const defaultConfig$ = usePropsAsStore(defaultConfig);
 		return useMemo(() => computed(() => ({...defaultConfig$(), ...(widgetName ? widgetsConfig?.()[widgetName] : undefined)})), [widgetsConfig]);
@@ -36,9 +36,9 @@ export const widgetsConfigFactory = <Config extends {[widgetName: string]: objec
 
 	const useWidgetWithConfig = <W extends Widget>(
 		factory: WidgetFactory<W>,
-		props: Partial<WidgetProps<W>> | undefined,
+		props: WidgetProps<W> | undefined,
 		widgetName: keyof Config | null,
-		defaultProps?: Partial<WidgetProps<W>>,
+		defaultProps?: WidgetProps<W>,
 	): [WidgetState<W>, W] => useWidget(factory, props, {config: useWidgetContext(widgetName, defaultProps)});
 
 	/**

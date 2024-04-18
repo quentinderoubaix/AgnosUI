@@ -19,11 +19,11 @@ export interface PropsConfig<U extends object> {
 	 * Either a store of objects containing, for each property, the default value,
 	 * or an object containing, for each property, either a store containing the default value or the default value itself.
 	 */
-	config?: ReadableSignal<Partial<U>> | ValuesOrReadableSignals<Partial<U>>;
+	config?: ReadableSignal<U> | ValuesOrReadableSignals<U>;
 }
 
 export interface Widget<
-	Props extends object = object,
+	Props extends Partial<object> = object,
 	State extends object = object,
 	Api extends object = object,
 	Actions extends object = object,
@@ -41,7 +41,7 @@ export interface Widget<
 	/**
 	 * Modify the parameter values, and recalculate the stores accordingly
 	 */
-	patch(parameters: Partial<Props>): void;
+	patch(parameters: Props): void;
 	/**
 	 * directives to be used on html elements in the template of the widget or in the slots
 	 */
@@ -85,7 +85,9 @@ export const toSlotContextWidget = <W extends Widget>(w: W): ContextWidget<W> =>
 });
 
 export type WidgetState<T extends {state$: SubscribableStore<any>}> = T extends {state$: SubscribableStore<infer U extends object>} ? U : never;
-export type WidgetProps<T extends {patch: (arg: any) => void}> = T extends {patch: (arg: Partial<infer U extends object>) => void} ? U : never;
+export type WidgetProps<T extends {patch: (arg: any) => void}> = T extends {patch: (arg: Partial<infer U extends object>) => void}
+	? Partial<U>
+	: never;
 export type WidgetFactory<W extends Widget> = (props?: PropsConfig<WidgetProps<W>>) => W;
 
 /**

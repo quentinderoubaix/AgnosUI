@@ -7,7 +7,7 @@
 
 <script lang="ts">
 	type Item = $$Generic; // eslint-disable-line no-undef
-	type $$Props = Partial<Props<Item>>;
+	type $$Props = Props<Item>;
 	type $$Slots = Slots<Item>;
 
 	export let open: boolean | undefined = false;

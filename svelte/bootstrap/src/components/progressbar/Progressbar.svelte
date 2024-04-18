@@ -4,7 +4,7 @@
 	import {callWidgetFactory} from '../../config';
 	import ProgressbarDefaultStructure from './ProgressbarDefaultStructure.svelte';
 
-	type $$Props = Partial<Props>;
+	type $$Props = Props;
 	type $$Slots = Slots;
 
 	const widget = callWidgetFactory({

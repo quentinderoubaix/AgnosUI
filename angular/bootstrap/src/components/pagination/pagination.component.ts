@@ -227,7 +227,7 @@ export const paginationDefaultSlotPages = new ComponentTemplate(PaginationDefaul
  */
 export const paginationDefaultSlotStructure = new ComponentTemplate(PaginationDefaultSlotsComponent, 'structure');
 
-const defaultConfig: Partial<PaginationProps> = {
+const defaultConfig: PaginationProps = {
 	slotStructure: paginationDefaultSlotStructure,
 	slotPages: paginationDefaultSlotPages,
 };

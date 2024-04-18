@@ -52,8 +52,7 @@ export class ProgressbarDefaultSlotsComponent {
 
 export const progressbarDefaultSlotStructure = new ComponentTemplate(ProgressbarDefaultSlotsComponent, 'structure');
 
-export type PartialProgressbarProps = Partial<ProgressbarProps>;
-const defaultConfig: PartialProgressbarProps = {
+const defaultConfig: ProgressbarProps = {
 	slotStructure: progressbarDefaultSlotStructure,
 };
 

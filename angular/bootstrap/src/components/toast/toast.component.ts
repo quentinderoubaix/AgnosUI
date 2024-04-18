@@ -80,7 +80,7 @@ export class ToastDefaultSlotsComponent {
 
 export const toastDefaultSlotStructure = new ComponentTemplate(ToastDefaultSlotsComponent, 'structure');
 
-const defaultConfig: Partial<ToastProps> = {
+const defaultConfig: ToastProps = {
 	slotStructure: toastDefaultSlotStructure,
 };
 
@@ -179,7 +179,7 @@ export class ToastComponent extends BaseWidgetDirective<ToastWidget> implements 
 	 */
 	@Output('auShown') shown = new EventEmitter<void>();
 
-	readonly defaultSlots: WritableSignal<Partial<ToastProps>> = writable(defaultConfig);
+	readonly defaultSlots: WritableSignal<ToastProps> = writable(defaultConfig);
 	/**
 	 * CSS classes to be applied on the widget main container
 	 */

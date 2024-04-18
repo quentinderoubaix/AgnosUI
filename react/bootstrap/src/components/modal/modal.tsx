@@ -48,12 +48,12 @@ const DefaultSlotStructure = <Data,>(slotContext: ModalContext<Data>) => (
 	</>
 );
 
-const defaultConfig: Partial<ModalProps<any>> = {
+const defaultConfig: ModalProps<any> = {
 	slotHeader: DefaultSlotHeader,
 	slotStructure: DefaultSlotStructure,
 };
 
-export const Modal = forwardRef(function Modal<Data>(props: PropsWithChildren<Partial<ModalProps<Data>>>, ref: Ref<ModalApi<Data>>) {
+export const Modal = forwardRef(function Modal<Data>(props: PropsWithChildren<ModalProps<Data>>, ref: Ref<ModalApi<Data>>) {
 	const [state, widget] = useWidgetWithConfig(createModal<Data>, props, 'modal', {...defaultConfig, slotDefault: props.children});
 	useImperativeHandle(ref, () => widget.api, []);
 	const refSetBackdrop = useDirective(widget.directives.backdropDirective);
@@ -76,9 +76,9 @@ export const Modal = forwardRef(function Modal<Data>(props: PropsWithChildren<Pa
 			)}
 		</Portal>
 	);
-}) as <Data>(props: PropsWithChildren<Partial<ModalProps<Data>>> & RefAttributes<ModalApi<Data>>) => JSX.Element;
+}) as <Data>(props: PropsWithChildren<ModalProps<Data>> & RefAttributes<ModalApi<Data>>) => JSX.Element;
 
-export async function openModal<Data>(options: Partial<ModalProps<Data>>) {
+export async function openModal<Data>(options: ModalProps<Data>) {
 	const root = ReactDOM.createRoot(document.createElement('div'));
 	try {
 		const api = await new Promise<ModalApi<Data> | null>((resolve) => {

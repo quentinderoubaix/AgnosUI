@@ -34,7 +34,7 @@ const defaultConfigExtraProps: ToastExtraProps = {
 	slotDefault: undefined,
 	slotHeader: undefined,
 };
-const coreOverride: Partial<CoreProps> = {
+const coreOverride: CoreProps = {
 	transition: fadeTransition,
 };
 

@@ -50,7 +50,7 @@ export function DefaultPages(slotContext: PaginationContext) {
 	return jsxPages.length ? <>{jsxPages}</> : null;
 }
 
-const defaultConfig: Partial<PaginationProps> = {
+const defaultConfig: PaginationProps = {
 	slotPages: DefaultPages,
 	slotStructure: DefaultStructure,
 };
@@ -132,7 +132,7 @@ export function DefaultStructure(slotContext: PaginationContext) {
 }
 
 // TODO discuss the extension of the props to the HTML UL one for react ?
-export function Pagination(props: Partial<PaginationProps>) {
+export function Pagination(props: PaginationProps) {
 	const [state, widget] = useWidgetWithConfig(createPagination, props, 'pagination', defaultConfig);
 	const slotContext: PaginationContext = {state, widget: toSlotContextWidget(widget)};
 

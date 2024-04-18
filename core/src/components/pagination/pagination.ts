@@ -183,7 +183,7 @@ export interface PaginationCommonPropsAndState extends WidgetsCommonPropsAndStat
 	slotNumberLabel: SlotContent<PaginationNumberContext>;
 }
 
-export interface PaginationProps extends PaginationCommonPropsAndState {
+export interface PaginationConfig extends PaginationCommonPropsAndState {
 	/**
 	 * The number of items in your paginated collection.
 	 *
@@ -261,6 +261,7 @@ export interface PaginationProps extends PaginationCommonPropsAndState {
 	 */
 	pageLink: (pageNumber: number) => string;
 }
+export interface PaginationProps extends Partial<PaginationConfig> {}
 
 export interface DirectionsHrefs {
 	/**
@@ -332,7 +333,7 @@ export type PaginationWidget = Widget<PaginationProps, PaginationState, Paginati
 
 const PAGE_LINK_DEFAULT = '#';
 
-const defaultConfig: PaginationProps = {
+const defaultConfig: PaginationConfig = {
 	page: 1,
 	collectionSize: 0,
 	pageSize: 10,
@@ -372,11 +373,11 @@ const defaultConfig: PaginationProps = {
  * Returns a shallow copy of the default pagination config
  * @returns a copy of the default config
  */
-export function getPaginationDefaultConfig() {
+export function getPaginationDefaultConfig(): PaginationConfig {
 	return {...defaultConfig};
 }
 
-const configValidator: ConfigValidator<PaginationProps> = {
+const configValidator: ConfigValidator<PaginationConfig> = {
 	page: typeNumber,
 	collectionSize: typeNumber,
 	pageSize: typeNumber,
