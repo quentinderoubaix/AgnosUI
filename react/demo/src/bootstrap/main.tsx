@@ -1,11 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from '../common/App';
+import {getRoutes} from '../common/routes';
+import {RouterProvider, createBrowserRouter} from 'react-router-dom';
 
+import '@agnos-ui/common/demo.scss';
+import '@agnos-ui/common/samples/links.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@agnos-ui/core-bootstrap/scss/agnosui.scss';
 
-const components = import.meta.glob('./samples/*/*.route.tsx', {import: 'default'});
+const routes = getRoutes(import.meta.glob('./samples/*/*.route.tsx', {import: 'default'}));
+const router = createBrowserRouter(routes, {basename: '/react/samples/bootstrap'});
+
+console.log(routes);
 
 window.addEventListener('storage', (event) => {
 	if (event.key === 'theme') {
@@ -15,8 +21,9 @@ window.addEventListener('storage', (event) => {
 	}
 });
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.hydrateRoot(
+	document.getElementById('root')!,
 	<React.StrictMode>
-		<App components={components} />
+		<RouterProvider router={router} />
 	</React.StrictMode>,
 );

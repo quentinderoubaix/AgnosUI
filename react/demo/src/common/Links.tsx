@@ -6,7 +6,7 @@ const Links = ({links}: {links: string[]}) => (
 		<div className="sample-links">
 			{links.map((url) => (
 				<div key={url}>
-					<a href={'#/' + url}>{url}</a>
+					<a href={url}>{url}</a>
 				</div>
 			))}
 		</div>

@@ -257,7 +257,7 @@ export default async () => {
 				urlPath = '/';
 				if (framework) {
 					if (sampleInfo) {
-						urlPath = `/${framework}/samples/${sampleInfo.style}/#/${sampleInfo.componentName.toLowerCase()}/${sampleInfo.sampleName.toLowerCase()}`;
+						urlPath = `/${framework}/samples/${sampleInfo.style}/${sampleInfo.componentName.toLowerCase()}/${sampleInfo.sampleName.toLowerCase()}`;
 					} else {
 						urlPath = `/${framework}/samples/bootstrap/`;
 					}

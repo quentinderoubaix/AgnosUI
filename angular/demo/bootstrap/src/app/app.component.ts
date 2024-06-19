@@ -10,12 +10,14 @@ import {RouterModule} from '@angular/router';
 })
 export class AppComponent implements OnInit {
 	ngOnInit() {
-		window.addEventListener('storage', (event) => {
-			if (event.key === 'theme') {
-				if (event.newValue) {
-					document.documentElement.setAttribute('data-bs-theme', event.newValue);
+		if (typeof window !== 'undefined') {
+			window.addEventListener('storage', (event) => {
+				if (event.key === 'theme') {
+					if (event.newValue) {
+						document.documentElement.setAttribute('data-bs-theme', event.newValue);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 }

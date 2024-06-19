@@ -23,7 +23,7 @@ async function generateLinks(project) {
 	export const LINKS = ${JSON.stringify(files.map((file) => file.toLowerCase()))};
 	const importAndNotify = async (importFn: () => Promise<any>) => {
 		const comp = await importFn();
-		if (window.parent) {
+		if (typeof window !== 'undefined' && window.parent) {
 			window.parent.postMessage({type: 'sampleload'});
 		}
 		return comp;

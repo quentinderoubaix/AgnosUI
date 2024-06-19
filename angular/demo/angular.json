@@ -22,6 +22,8 @@
 						},
 						"index": "bootstrap/src/index.html",
 						"browser": "bootstrap/src/main.ts",
+						"server": "bootstrap/src/main.server.ts",
+						"prerender": true,
 						"polyfills": ["bootstrap/src/polyfills.ts"],
 						"tsConfig": "bootstrap/tsconfig.build.json",
 						"assets": ["bootstrap/src/agnosui-logo.svg"],
@@ -34,12 +36,6 @@
 					},
 					"configurations": {
 						"coverage": {
-							"fileReplacements": [
-								{
-									"replace": "bootstrap/src/environments/environment.ts",
-									"with": "bootstrap/src/environments/environment.prod.ts"
-								}
-							],
 							"outputHashing": "all",
 							"tsConfig": "bootstrap/tsconfig.json"
 						},
@@ -54,12 +50,6 @@
 									"type": "anyComponentStyle",
 									"maximumWarning": "2kb",
 									"maximumError": "4kb"
-								}
-							],
-							"fileReplacements": [
-								{
-									"replace": "bootstrap/src/environments/environment.ts",
-									"with": "bootstrap/src/environments/environment.prod.ts"
 								}
 							],
 							"outputHashing": "all"
@@ -110,6 +100,8 @@
 						},
 						"index": "daisyui/src/index.html",
 						"browser": "daisyui/src/main.ts",
+						"server": "daisyui/src/main.server.ts",
+						"prerender": true,
 						"polyfills": ["daisyui/src/polyfills.ts"],
 						"tsConfig": "daisyui/tsconfig.build.json",
 						"assets": ["daisyui/src/agnosui-logo.svg"],
@@ -122,12 +114,6 @@
 					},
 					"configurations": {
 						"coverage": {
-							"fileReplacements": [
-								{
-									"replace": "daisyui/src/environments/environment.ts",
-									"with": "daisyui/src/environments/environment.prod.ts"
-								}
-							],
 							"outputHashing": "all",
 							"tsConfig": "daisyui/tsconfig.json"
 						},
@@ -142,12 +128,6 @@
 									"type": "anyComponentStyle",
 									"maximumWarning": "2kb",
 									"maximumError": "4kb"
-								}
-							],
-							"fileReplacements": [
-								{
-									"replace": "daisyui/src/environments/environment.ts",
-									"with": "daisyui/src/environments/environment.prod.ts"
 								}
 							],
 							"outputHashing": "all"

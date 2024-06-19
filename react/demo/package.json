@@ -29,13 +29,14 @@
 			"service": true
 		},
 		"build": {
-			"command": "vite build",
+			"command": "vite build --ssr bootstrap/server.tsx --outDir ../dist-server/bootstrap && vite build --ssrManifest .vite/ssr-manifest.json && node prerender.js",
 			"dependencies": [
 				"../bootstrap:build"
 			],
 			"files": [
 				"src/**",
-				"vite.config.ts"
+				"vite.config.ts",
+				"prerender.js"
 			],
 			"output": [
 				"dist/**"
