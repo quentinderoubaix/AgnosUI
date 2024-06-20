@@ -22,6 +22,7 @@
 	};
 
 	$: isMainPage = $routeLevel$ === 0;
+	$: isApi = $page.route.id?.startsWith('/api/');
 
 	onMount(() => {
 		navigator.serviceWorker?.addEventListener('controllerchange', onServiceWorkerUpdate);
@@ -85,6 +86,9 @@
 					class:active={$page.route.id?.startsWith('/docs/')}
 					aria-current={$page.route.id?.startsWith('/docs/') ? 'page' : undefined}>Documentation</a
 				>
+				{#if import.meta.env.API}
+					<a class="nav-link ms-3" href="{$pathToRoot$}api" class:active={isApi} aria-current={isApi ? 'page' : undefined}>API</a>
+				{/if}
 				<a
 					class="nav-link"
 					href="{$pathToRoot$}blog/2024-02-01"

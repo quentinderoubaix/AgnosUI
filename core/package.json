@@ -51,7 +51,8 @@
 		"tdd": "vitest",
 		"tdd:ui": "vitest --ui",
 		"tdd:debug": "vitest --no-browser.headless",
-		"test:coverage": "wireit"
+		"test:coverage": "wireit",
+		"typedoc": "wireit"
 	},
 	"wireit": {
 		"build:src": {
@@ -132,6 +133,9 @@
 			"output": [
 				"coverage/**"
 			]
+		},
+		"typedoc": {
+			"command": "typedoc && typedoc-json-parser --json ../demo/generated/typedoc/core.json"
 		}
 	},
 	"peerDependencies": {

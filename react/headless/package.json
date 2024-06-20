@@ -50,7 +50,8 @@
 		}
 	},
 	"scripts": {
-		"build": "wireit"
+		"build": "wireit",
+		"typedoc": "wireit"
 	},
 	"wireit": {
 		"generate:exports": {
@@ -106,6 +107,9 @@
 				"build:src",
 				"build:pkg"
 			]
+		},
+		"typedoc": {
+			"command": "typedoc && typedoc-json-parser --json ../../demo/generated/typedoc/react-headless.json"
 		}
 	},
 	"dependencies": {
