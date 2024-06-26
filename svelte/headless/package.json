@@ -120,6 +120,22 @@
 				"../../tsconfig.json"
 			],
 			"output": []
+		},
+		"typedoc": {
+			"command": "typedoc && typedoc-json-parser --json generated/svelte-headless.json",
+			"dependencies": [
+				"generate:exports"
+			],
+			"files": [
+				"src/**",
+				"tsconfig.json",
+				"tsconfig.typedoc.json",
+				"../tsconfig.json",
+				"../../tsconfig.json"
+			],
+			"output": [
+				"generated/svelte-headless.json"
+			]
 		}
 	},
 	"dependencies": {

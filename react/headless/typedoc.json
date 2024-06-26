@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"entryPoints": ["src/index.ts"],
-	"json": "../../demo/generated/typedoc/react-headless.json",
+	"json": "generated/react-headless.json",
 	"tsconfig": "tsconfig.json"
 }

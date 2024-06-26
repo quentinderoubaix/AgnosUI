@@ -81,8 +81,8 @@
 		"lint": "wireit",
 		"dev": "wireit",
 		"dev:stackblitz": "wireit",
+		"dev:api": "wireit",
 		"dev:coverage": "wireit",
-		"typedoc": "wireit",
 		"preview": "npm run preview -w demo",
 		"preview:coverage": "npm run preview:coverage -w demo",
 		"e2e": "wireit",
@@ -108,6 +108,14 @@
 				"./react/demo:dev",
 				"./svelte/demo:dev",
 				"./demo:dev:stackblitz"
+			]
+		},
+		"dev:api": {
+			"dependencies": [
+				"./angular/demo:dev",
+				"./react/demo:dev",
+				"./svelte/demo:dev",
+				"./demo:dev:api"
 			]
 		},
 		"dev:coverage": {
@@ -188,12 +196,6 @@
 			"dependencies": [
 				"./eslint-plugin:build",
 				"./svelte/bootstrap:build"
-			]
-		},
-		"typedoc": {
-			"command": "typedoc",
-			"dependencies": [
-				"prepare"
 			]
 		}
 	},

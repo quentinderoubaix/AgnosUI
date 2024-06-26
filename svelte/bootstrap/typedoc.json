@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"entryPoints": ["src/index.ts"],
-	"json": "generated/core.json",
-	"tsconfig": "tsconfig.json"
+	"json": "generated/svelte-bootstrap.json",
+	"tsconfig": "tsconfig.typedoc.json"
 }

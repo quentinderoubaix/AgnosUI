@@ -50,8 +50,7 @@
 		}
 	},
 	"scripts": {
-		"build": "wireit",
-		"typedoc": "wireit"
+		"build": "wireit"
 	},
 	"wireit": {
 		"generate:exports": {
@@ -125,7 +124,21 @@
 			]
 		},
 		"typedoc": {
-			"command": "typedoc && typedoc-json-parser --json ../../demo/generated/typedoc/react-bootstrap.json"
+			"command": "typedoc && typedoc-json-parser --json generated/react-bootstrap.json",
+			"dependencies": [
+				"generate:exports",
+				"generate:component-types"
+			],
+			"files": [
+				"src/**",
+				"tsconfig.json",
+				"tsconfig.build.json",
+				"../tsconfig.json",
+				"../../tsconfig.json"
+			],
+			"output": [
+				"generated/react-bootstrap.json"
+			]
 		}
 	},
 	"dependencies": {

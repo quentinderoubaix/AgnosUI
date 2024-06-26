@@ -139,6 +139,23 @@
 				"../../tsconfig.json"
 			],
 			"output": []
+		},
+		"typedoc": {
+			"command": "typedoc && typedoc-json-parser --json generated/svelte-bootstrap.json",
+			"dependencies": [
+				"generate:exports",
+				"generate:component-types"
+			],
+			"files": [
+				"src/**",
+				"tsconfig.json",
+				"tsconfig.typedoc.json",
+				"../tsconfig.json",
+				"../../tsconfig.json"
+			],
+			"output": [
+				"generated/svelte-bootstrap.json"
+			]
 		}
 	},
 	"dependencies": {

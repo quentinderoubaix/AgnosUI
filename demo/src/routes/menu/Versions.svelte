@@ -1,73 +1,38 @@
-<script context="module" lang="ts">
+<script lang="ts">
 	import {page} from '$app/stores';
 	import {pathToRoot$, selectedFramework$} from '$lib/stores';
-	import {createHasFocus} from '@agnos-ui/svelte-bootstrap/services/focustrack';
-	import {writable} from '@amadeus-it-group/tansu';
 	import {validate, compare} from 'compare-versions';
+	import Dropdown from '$lib/layout/Dropdown.svelte';
 	import type {Version} from './version';
-</script>
 
-<script lang="ts">
 	export let versions: Version[];
 
 	$: currentVersion = versions.find((version) => version.version === `v${import.meta.env.AGNOSUI_VERSION}`) ?? versions[0];
-
-	const open$ = writable(false);
-
-	const {hasFocus$, directive} = createHasFocus();
-	$: $open$ = $hasFocus$;
-
-	function giveFocus(el: HTMLAnchorElement, index: number) {
-		if (index === 0) {
-			el.focus();
-		}
-	}
-
 	$: versionsWithUrl = versions.map((version) => ({
-		...version,
-		url:
+		id: version.folder,
+		version: version.version,
+		href:
 			version.version === 'PREVIEW' ||
 			$page.route.id === '/' ||
 			($page.data['since'] && validate($page.data['since']) && compare($page.data['since'], version.version, '<='))
 				? $page.url.pathname.replace(`/${currentVersion.folder}/`, `/${version.folder}/`)
 				: `${$pathToRoot$.replace(currentVersion.folder, version.folder)}docs/${$selectedFramework$}/getting-started/introduction`,
+		isSelected: currentVersion.folder === version.folder,
 	}));
 </script>
 
 <div class="nav-item">
-	<div class="dropdown">
-		<button
-			class="btn nav-link dropdown-toggle align-items-center d-flex {currentVersion.version === 'PREVIEW' ? 'badge text-bg-warning' : ''}"
-			aria-label="demo version select"
-			on:mousedown|preventDefault
-			on:click={() => ($open$ = !$open$)}
-			type="button"
-			aria-expanded={$open$}
-		>
+	<Dropdown
+		ariaLabel="select the version of agnosui"
+		btnClass="nav-link {currentVersion.version === 'PREVIEW' ? 'badge text-bg-warning' : ''}"
+		items={versionsWithUrl}
+		mode="links"
+	>
+		<svelte:fragment slot="button">
 			{currentVersion.version}
-		</button>
-		{#if $open$}
-			<div use:directive class="dropdown-menu dropdown-menu-end bs-popover-auto position-absolute" class:show={$open$}>
-				{#each versionsWithUrl as version, index}
-					<a
-						use:giveFocus={index}
-						class="dropdown-item d-flex align-items-center"
-						href={version.url}
-						class:active={version.folder === currentVersion.folder}
-						on:click={() => {
-							$open$ = !$open$;
-						}}
-					>
-						{index === 1 ? `Latest (${version.version})` : version.version}
-					</a>
-				{/each}
-			</div>
-		{/if}
-	</div>
+		</svelte:fragment>
+		<svelte:fragment slot="item" let:item let:index>
+			{index === 1 ? `Latest (${item.version})` : item.version}
+		</svelte:fragment>
+	</Dropdown>
 </div>
-
-<style lang="css">
-	.nav-link {
-		transition: none;
-	}
-</style>

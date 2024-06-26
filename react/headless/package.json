@@ -50,8 +50,7 @@
 		}
 	},
 	"scripts": {
-		"build": "wireit",
-		"typedoc": "wireit"
+		"build": "wireit"
 	},
 	"wireit": {
 		"generate:exports": {
@@ -109,7 +108,20 @@
 			]
 		},
 		"typedoc": {
-			"command": "typedoc && typedoc-json-parser --json ../../demo/generated/typedoc/react-headless.json"
+			"command": "typedoc && typedoc-json-parser --json generated/react-headless.json",
+			"dependencies": [
+				"generate:exports"
+			],
+			"files": [
+				"src/**",
+				"tsconfig.json",
+				"tsconfig.build.json",
+				"../tsconfig.json",
+				"../../tsconfig.json"
+			],
+			"output": [
+				"generated/react-headless.json"
+			]
 		}
 	},
 	"dependencies": {

@@ -37,7 +37,6 @@
 			],
 			"files": [
 				"src/**",
-				"!src/generated/**",
 				"tsconfig.build.json",
 				"../tsconfig.json",
 				"../../tsconfig.json",
@@ -73,6 +72,22 @@
 		},
 		"check": {
 			"command": "node scripts/verify-module.js"
+		},
+		"typedoc": {
+			"command": "typedoc && typedoc-json-parser --json generated/angular-bootstrap.json",
+			"dependencies": [
+				"generate:component-types"
+			],
+			"files": [
+				"src/**",
+				"tsconfig.json",
+				"tsconfig.build.json",
+				"../tsconfig.json",
+				"../../tsconfig.json"
+			],
+			"output": [
+				"generated/angular-bootstrap.json"
+			]
 		}
 	},
 	"peerDependencies": {

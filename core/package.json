@@ -135,7 +135,15 @@
 			]
 		},
 		"typedoc": {
-			"command": "typedoc && typedoc-json-parser --json ../demo/generated/typedoc/core.json"
+			"command": "typedoc && typedoc-json-parser --json generated/core.json",
+			"files": [
+				"src/**",
+				"tsconfig.json",
+				"../tsconfig.json"
+			],
+			"output": [
+				"generated/core.json"
+			]
 		}
 	},
 	"peerDependencies": {

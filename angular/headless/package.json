@@ -88,6 +88,22 @@
 			"output": [
 				"coverage"
 			]
+		},
+		"typedoc": {
+			"command": "typedoc && typedoc-json-parser --json generated/angular-headless.json",
+			"dependencies": [
+				"generate:exports"
+			],
+			"files": [
+				"src/**",
+				"tsconfig.json",
+				"tsconfig.build.json",
+				"../tsconfig.json",
+				"../../tsconfig.json"
+			],
+			"output": [
+				"generated/angular-headless.json"
+			]
 		}
 	},
 	"peerDependencies": {

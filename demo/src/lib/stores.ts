@@ -36,6 +36,17 @@ export type Frameworks = 'angular' | 'react' | 'svelte';
 export const selectedFramework$ = computed(() => {
 	return <Frameworks>(get(page).params.framework ?? 'angular');
 });
+/**
+ * Current selected package
+ */
+export const selectedPackage$ = computed(() => {
+	const type = get(page).params.type;
+	if (!type) {
+		return '@agnos-ui/core';
+	}
+	const fwk = selectedFramework$();
+	return type === 'core' ? '@agnos-ui/core' : `@agnos-ui/${fwk}-${type}`;
+});
 
 const tabRegExp = /^\/docs\/\[framework\]\/(components|daisyUI)\/[^/]*\/([^/]*)/;
 /**
@@ -44,12 +55,6 @@ const tabRegExp = /^\/docs\/\[framework\]\/(components|daisyUI)\/[^/]*\/([^/]*)/
 export const selectedTabName$ = computed(() => {
 	const match = tabRegExp.exec(get(page).route.id || '');
 	return match?.[2];
-});
-
-const frameworkKeyRegExp = /\/docs\/[a-z]*\/(.*)$/;
-export const frameworkLessUrl$ = computed(() => {
-	const $page = get(page);
-	return $page.url.pathname.match(frameworkKeyRegExp)?.[1] ?? '/';
 });
 
 export const intersectionApi = createIntersection();

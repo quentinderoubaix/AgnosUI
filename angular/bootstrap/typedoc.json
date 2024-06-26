@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"entryPoints": ["src/index.ts"],
-	"json": "generated/core.json",
+	"json": "generated/angular-bootstrap.json",
 	"tsconfig": "tsconfig.json"
 }

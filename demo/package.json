@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "wireit",
 		"dev:stackblitz": "wireit",
+		"dev:api": "wireit",
 		"dev:coverage": "wireit dev",
 		"build": "wireit",
 		"generate:doc": "wireit",
@@ -65,6 +66,23 @@
 			"service": true,
 			"env": {
 				"STACKBLITZ": "true"
+			}
+		},
+		"dev:api": {
+			"command": "vite dev",
+			"dependencies": [
+				"generate:doc",
+				"../core:typedoc",
+				"../react/headless:typedoc",
+				"../react/bootstrap:typedoc",
+				"../svelte/headless:typedoc",
+				"../svelte/bootstrap:typedoc",
+				"../angular/headless:typedoc",
+				"../angular/bootstrap:typedoc"
+			],
+			"service": true,
+			"env": {
+				"API": "true"
 			}
 		},
 		"build": {
