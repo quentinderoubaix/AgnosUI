@@ -106,13 +106,6 @@ export function addEvent(
 	};
 }
 
-let idCount = 0;
-/**
- * Generates a unique ID with the format 'auId-[counter]'.
- *
- * @returns The generated ID.
- */
-export const generateId = () => `auId-${idCount++}`;
 const notEmpty = (value: any) => value != null && value !== false;
 
 function classNamesSubscribe(node: SSRHTMLElement, classNames$: ReadableSignal<string>) {

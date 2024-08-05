@@ -1,0 +1,14 @@
+.au-carousel {
+	overflow: hidden;
+}
+
+.au-carousel-container {
+	display: flex;
+	width: 100%;
+}
+
+.au-carousel-slide {
+	flex: 0 0 100%;
+	position: relative;
+	user-select: none;
+}

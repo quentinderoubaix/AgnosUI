@@ -36,3 +36,4 @@ export * from './services/transitions/simpleClassTransition';
 export * from './utils/directive';
 export * from './utils/stores';
 export * from './utils/writables';
+export * from './utils/id';
