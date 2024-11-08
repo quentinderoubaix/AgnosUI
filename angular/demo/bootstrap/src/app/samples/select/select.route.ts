@@ -1,5 +1,6 @@
 import {SelectComponent, injectWidgetsConfig, provideWidgetsConfig, toAngularSignal} from '@agnos-ui/angular-bootstrap';
-import {Component, computed, signal} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
+import {Component, computed, inject, PLATFORM_ID, signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -40,12 +41,15 @@ export default class SelectSelectComponent {
 	readonly widgetsConfig = toAngularSignal(this.widgetsConfig$);
 
 	constructor() {
-		const params = location.hash.split('?')[1];
-		const url = new URL(params ? `?${params}` : '', location.href);
-		this.widgetsConfig$.set({
-			select: {
-				filterText: url.searchParams.get('filterText') ?? '',
-			},
-		});
+		const platformId = inject(PLATFORM_ID);
+		if (isPlatformBrowser(platformId)) {
+			const params = location.hash.split('?')[1];
+			const url = new URL(params ? `?${params}` : '', location.href);
+			this.widgetsConfig$.set({
+				select: {
+					filterText: url.searchParams.get('filterText') ?? '',
+				},
+			});
+		}
 	}
 }

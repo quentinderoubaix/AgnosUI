@@ -88,7 +88,7 @@
 			code = '';
 		}
 	});
-	let sampleBaseUrl = $derived(`${$pathToRoot$}${$selectedFramework$}/samples${complementaryUrl}/#/${path}`);
+	let sampleBaseUrl = $derived(`${$pathToRoot$}${$selectedFramework$}/samples${complementaryUrl}/${path}`);
 	let sampleUrl = $derived(sampleBaseUrl + (urlParameters ? `#${JSON.stringify(urlParameters)}` : ''));
 
 	const {showSpinner$, handlerDirective} = createIframeHandler(height, !noresize);

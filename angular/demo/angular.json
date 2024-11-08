@@ -22,7 +22,8 @@
 						},
 						"index": "bootstrap/src/index.html",
 						"browser": "bootstrap/src/main.ts",
-						"polyfills": ["bootstrap/src/polyfills.ts"],
+						"server": "bootstrap/src/main.server.ts",
+						"prerender": true,
 						"tsConfig": "bootstrap/tsconfig.build.json",
 						"assets": ["bootstrap/src/agnosui-logo.svg"],
 						"styles": ["bootstrap/src/styles.css", "../../common/demo.scss", "@agnos-ui/core-bootstrap/scss/agnosui.scss"],
@@ -50,6 +51,11 @@
 									"maximumError": "4kb"
 								}
 							],
+							"optimization": {
+								"styles": {
+									"inlineCritical": false
+								}
+							},
 							"outputHashing": "all"
 						},
 						"development": {
@@ -57,7 +63,11 @@
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
-							"tsConfig": "bootstrap/tsconfig.json"
+							"tsConfig": "bootstrap/tsconfig.json",
+							"outputPath": {
+								"base": "dist/bootstrap",
+								"browser": "browser"
+							}
 						}
 					},
 					"defaultConfiguration": "production"
@@ -98,7 +108,8 @@
 						},
 						"index": "daisyui/src/index.html",
 						"browser": "daisyui/src/main.ts",
-						"polyfills": ["daisyui/src/polyfills.ts"],
+						"server": "daisyui/src/main.server.ts",
+						"prerender": true,
 						"tsConfig": "daisyui/tsconfig.build.json",
 						"assets": ["daisyui/src/agnosui-logo.svg"],
 						"styles": ["daisyui/src/styles.css", "../../common/demo.scss"],
@@ -126,6 +137,11 @@
 									"maximumError": "4kb"
 								}
 							],
+							"optimization": {
+								"styles": {
+									"inlineCritical": false
+								}
+							},
 							"outputHashing": "all"
 						},
 						"development": {
@@ -133,7 +149,11 @@
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
-							"tsConfig": "daisyui/tsconfig.json"
+							"tsConfig": "daisyui/tsconfig.json",
+							"outputPath": {
+								"base": "dist/daisyui",
+								"browser": "browser"
+							}
 						}
 					},
 					"defaultConfiguration": "production"

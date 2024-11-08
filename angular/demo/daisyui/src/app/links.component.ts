@@ -10,7 +10,7 @@ import {links} from './links';
 		<div class="sample-links">
 			@for (url of links; track url) {
 				<div>
-					<a href="#/{{ url }}">{{ url }}</a>
+					<a href="{{ url }}">{{ url }}</a>
 				</div>
 			}
 		</div>

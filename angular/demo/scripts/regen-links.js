@@ -18,20 +18,18 @@ async function generateLinks(project) {
 	).map((file) => normalizePath(file.slice(0, -9)));
 	files.sort();
 
-	const content = `
-	import type {Route} from '@angular/router';
-	export const LINKS = ${JSON.stringify(files.map((file) => file.toLowerCase()))};
-	const importAndNotify = async (importFn: () => Promise<any>) => {
-		const comp = await importFn();
-		if (window.parent) {
-			window.parent.postMessage({type: 'sampleload'});
-		}
-		return comp;
+	const content = `import type {Route} from '@angular/router';
+export const LINKS = ${JSON.stringify(files.map((file) => file.toLowerCase()))};
+const importAndNotify = async (importFn: () => Promise<any>) => {
+	const comp = await importFn();
+	if (typeof window !== 'undefined' && window.parent) {
+		window.parent.postMessage({type: 'sampleload'});
 	}
-	export const SAMPLE_ROUTES: Route[] = [${files
+	return comp;
+}
+export const SAMPLE_ROUTES: Route[] = [${files
 		.map((file) => `{path: '${file.toLowerCase()}', loadComponent: () => importAndNotify(() => import('../samples/${file}.route'))}`)
-		.join(', ')}];
-	`;
+		.join(', ')}];`;
 
 	const generatedFolder = path.join(__dirname, `../${project}/src/app/generated`);
 
