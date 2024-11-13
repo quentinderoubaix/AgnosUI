@@ -1,5 +1,5 @@
 {
-	"extends": "../tsconfig.json",
+	"extends": ["./.svelte-kit/tsconfig.json"],
 	"compilerOptions": {
 		"paths": {
 			"@agnos-ui/core/*": ["./core/src/*"],
@@ -10,7 +10,5 @@
 			"@agnos-ui/code-coverage/*": ["./code-coverage/lib/*"]
 		},
 		"allowJs": true
-	},
-	"include": ["src"],
-	"files": ["vite.config.ts", "vite.coverage.config.ts", "postcss.config.js", "tailwind.config.js"]
+	}
 }

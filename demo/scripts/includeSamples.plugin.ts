@@ -12,7 +12,7 @@ const commonImport = /^@agnos-ui\/common\/samples\/([^?]*)(\?raw|\?react)?$/;
 const frameworkDefaults = {
 	angular: path.join(__dirname, `../../angular/demo/bootstrap/src/app/samples/placeholder/placeholderSample.route.ts`),
 	react: path.join(__dirname, `../../react/demo/src/bootstrap/samples/placeholder/PlaceholderSample.route.tsx`),
-	svelte: path.join(__dirname, `../../svelte/demo/src/bootstrap/samples/placeholder/PlaceholderSample.route.svelte`),
+	svelte: path.join(__dirname, `../../svelte/demo/src/routes/bootstrap/placeholder/placeholdersample/+page.svelte`),
 };
 
 const importRegExp = /import([^;]+from)?\s*['"]([^'"]+)['"]\s*;/g;
@@ -121,8 +121,8 @@ export const includeSamples = (): Plugin => {
 					);
 					await addFile(
 						'svelte',
-						`${sampleName}.svelte`,
-						path.join(__dirname, `../../svelte/demo/src/${cssFramework}/samples/${componentName}/${normalizedSampleName}.route.svelte`),
+						`+page.svelte`,
+						path.join(__dirname, `../../svelte/demo/src/routes/${cssFramework}/${componentName}/${sampleName.toLowerCase()}/+page.svelte`),
 					);
 					const complementaryUrl = `/${cssFramework}`;
 					let output = `export default {componentName:${JSON.stringify(componentName)}, style:'${cssFramework}', sampleName:${JSON.stringify(sampleName)},files:{`;

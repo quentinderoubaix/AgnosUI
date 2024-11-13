@@ -15,7 +15,7 @@ import {derived} from 'svelte/store';
  * @param spinnerDebounce the debounce in milliseconds before the spinner store is set to true
  * @returns the handler and a spinner store
  */
-export function createIframeHandler(defaultHeight: number, resize = true, messageType = 'sampleload', spinnerDebounce = 300) {
+export function createIframeHandler(defaultHeight: number, resize = true, messageType = 'sampleload', spinnerDebounce = 600) {
 	const _iframeLoaded$ = writable(true);
 	const _showSpinner$ = writable(false);
 
