@@ -1,11 +1,11 @@
-import type {AlertWidget} from '@agnos-ui/angular-headless';
 import {
 	BaseWidgetDirective,
+	type TransitionWidget,
 	UseDirective,
 	auBooleanAttribute,
 	callWidgetFactory,
-	createAlert,
 	createSimpleClassTransition,
+	createTransition,
 } from '@agnos-ui/angular-headless';
 
 import {ChangeDetectionStrategy, Component, inject, input, model, output} from '@angular/core';
@@ -17,13 +17,13 @@ import {DomSanitizer} from '@angular/platform-browser';
 	imports: [UseDirective],
 	template: `
 		@if (!state.hidden()) {
-			<div role="alert" class="flex alert {{ state.className() }}" [auUse]="directives.transitionDirective">
+			<div role="alert" class="flex alert alert-{{ type() }}" [auUse]="directives.directive">
 				<ng-content />
-				@if (state.dismissible()) {
+				@if (dismissible()) {
 					<button
 						class="btn btn-sm btn-circle btn-ghost ms-auto"
-						(click)="api.close()"
-						[attr.aria-label]="state.ariaCloseButtonLabel()"
+						(click)="api.hide()"
+						[attr.aria-label]="ariaCloseButtonLabel()"
 						[innerHTML]="closeIcon"
 					></button>
 				}
@@ -33,21 +33,20 @@ import {DomSanitizer} from '@angular/platform-browser';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AlertComponent extends BaseWidgetDirective<AlertWidget> {
+export class AlertComponent extends BaseWidgetDirective<TransitionWidget> {
 	readonly closeIcon = inject(DomSanitizer).bypassSecurityTrustHtml(closeIcon);
 
-	readonly dismissible = input(undefined, {transform: auBooleanAttribute});
+	readonly dismissible = input(true, {transform: auBooleanAttribute});
 	readonly visible = model(false);
-	readonly ariaCloseButtonLable = input<string>();
-	readonly className = input<string>();
+	readonly ariaCloseButtonLabel = input<string>('Close');
+	readonly type = input<'info' | 'success' | 'error' | 'warning'>('success');
 	readonly hidden = output();
 	readonly shown = output();
 
 	constructor() {
 		super(
 			callWidgetFactory({
-				factory: createAlert,
-				widgetName: 'alert',
+				factory: createTransition,
 				events: {
 					onVisibleChange: (event) => this.visible.set(event),
 					onShown: () => this.shown.emit(),

@@ -1,7 +1,6 @@
 import type {ReadableSignal, WritableSignal} from '@amadeus-it-group/tansu';
 import {asWritable, computed, writable} from '@amadeus-it-group/tansu';
 import type {ModalProps} from './components/modal/modal';
-import type {AlertProps} from './components/alert/alert';
 import type {PaginationProps} from './components/pagination/pagination';
 import type {RatingProps} from './components/rating/rating';
 import type {SelectProps} from './components/select/select';
@@ -117,10 +116,6 @@ export type WidgetsConfig = {
 	 * the modal widget config
 	 */
 	modal: ModalProps;
-	/**
-	 * the alert widget config
-	 */
-	alert: AlertProps;
 	/**
 	 * the accordion widget config
 	 */

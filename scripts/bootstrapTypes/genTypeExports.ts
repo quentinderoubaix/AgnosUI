@@ -90,7 +90,7 @@ function getTypesImportsMap(nodes: Node[], excludedNames: Set<string>) {
 
 const componentsProps: [string, string, number][] = [];
 
-const components = await readdir(coreBootstrapComponents);
+const components = (await readdir(coreBootstrapComponents)).filter((name) => name !== 'commonProps.ts');
 for (const component of components) {
 	const sourceFile = program.getSourceFile(path.join(coreBootstrapComponents, `${component}/${component}.ts`))!;
 	const sourceFileSymbol = typeChecker.getSymbolAtLocation(sourceFile)!;

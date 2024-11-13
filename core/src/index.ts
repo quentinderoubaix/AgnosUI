@@ -3,7 +3,6 @@ export * from './types';
 
 // components
 export * from './components/accordion';
-export * from './components/alert';
 export * from './components/modal';
 export * from './components/pagination';
 export * from './components/progressbar';

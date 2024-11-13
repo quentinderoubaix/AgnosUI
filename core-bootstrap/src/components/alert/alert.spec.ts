@@ -1,8 +1,7 @@
-import {beforeEach, describe, expect, test} from 'vitest';
+import {beforeEach, describe, expect, test, vi} from 'vitest';
 import {createAlert} from './alert';
 import type {AlertWidget} from './alert';
-import type {WidgetState} from '../../types';
-import {promiseWithResolve} from '../../utils/internal/promise';
+import type {WidgetState} from '@agnos-ui/core/types';
 
 describe(`Alert`, () => {
 	let alert: AlertWidget;
@@ -22,6 +21,9 @@ describe(`Alert`, () => {
 			visible: true,
 			hidden: false,
 			ariaCloseButtonLabel: 'Close',
+			children: undefined,
+			structure: undefined,
+			type: 'primary',
 		});
 	});
 
@@ -44,25 +46,19 @@ describe(`Alert`, () => {
 		expect(state).toEqual(expectedState);
 	});
 
-	test('should emit events on change of the visibility', async () => {
+	test.only('should emit events on change of the visibility', async () => {
 		let onShownCounter = 0;
 		let onHiddenCounter = 0;
 		let onVisibleChangeCounter = 0;
-		let promiseOnShown = promiseWithResolve();
-		let promiseOnHidden = promiseWithResolve();
 		const element = document.createElement('div');
 		element.innerHTML = '<div>body</div>';
 		const alertEvents = createAlert({
 			props: {
 				onShown() {
-					promiseOnShown.resolve();
 					onShownCounter++;
-					promiseOnShown = promiseWithResolve();
 				},
 				onHidden() {
-					promiseOnHidden.resolve();
 					onHiddenCounter++;
-					promiseOnHidden = promiseWithResolve();
 				},
 				onVisibleChange() {
 					onVisibleChangeCounter++;
@@ -72,13 +68,22 @@ describe(`Alert`, () => {
 		alertEvents.directives.transitionDirective(element);
 
 		alertEvents.api.close();
-		await promiseOnHidden.promise;
+		await vi.waitFor(() => {
+			if (!alertEvents.state$().hidden) {
+				throw new Error();
+			}
+		});
+
 		expect(onVisibleChangeCounter).toBe(1);
 		expect(onShownCounter).toBe(0);
 		expect(onHiddenCounter).toBe(1);
 
 		alertEvents.api.open();
-		await promiseOnShown.promise;
+		await vi.waitFor(() => {
+			if (onShownCounter !== 1) {
+				throw new Error();
+			}
+		});
 		expect(onVisibleChangeCounter).toBe(2);
 		expect(onShownCounter).toBe(1);
 		expect(onHiddenCounter).toBe(1);

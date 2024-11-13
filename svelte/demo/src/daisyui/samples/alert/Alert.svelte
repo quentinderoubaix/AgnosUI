@@ -1,48 +1,44 @@
 <script lang="ts">
-	import {createAlert} from '@agnos-ui/svelte-headless/components/alert';
-	import type {AlertProps} from '@agnos-ui/svelte-headless/components/alert';
-	import {callWidgetFactory} from '@agnos-ui/svelte-headless/config';
 	import {createSimpleClassTransition} from '@agnos-ui/svelte-headless/services/transitions/simpleClassTransition';
+	import {createTransition} from '@agnos-ui/svelte-headless/services/transitions/baseTransitions';
 	import closeIconSvg from '@agnos-ui/common/samples/common/close_icon.svg?raw';
 	import type {Snippet} from 'svelte';
+	import {callWidgetFactory} from '@agnos-ui/svelte-headless/config';
 
-	let {
-		visible = $bindable(),
-		children,
-		...props
-	}: Partial<Pick<AlertProps, 'className' | 'visible' | 'dismissible' | 'ariaCloseButtonLabel'>> & {children: Snippet} = $props();
+	interface Props {
+		children: Snippet;
+		visible?: boolean;
+		dismissible?: boolean;
+		ariaCloseButtonLabel?: string;
+		type?: 'info' | 'success' | 'error' | 'warning';
+	}
 
-	const transition = createSimpleClassTransition({
-		showClasses: ['transition-opacity'],
-		hideClasses: ['opacity-0'],
-		animationPendingHideClasses: ['opacity-0', 'transition-opacity'],
-	});
+	let {visible = $bindable(), dismissible = true, ariaCloseButtonLabel = 'Close', children, type = 'success'}: Props = $props();
 
-	const {
-		state,
-		directives: {transitionDirective},
-		api,
-	} = callWidgetFactory({
-		factory: createAlert,
-		widgetName: 'alert',
+	const alertWidget = callWidgetFactory({
+		factory: createTransition,
 		get props() {
-			return {...props, visible};
+			return {visible};
 		},
 		enablePatchChanged: true,
-		defaultConfig: {transition},
+		defaultConfig: {
+			transition: createSimpleClassTransition({
+				showClasses: ['transition-opacity'],
+				hideClasses: ['opacity-0'],
+				animationPendingHideClasses: ['opacity-0', 'transition-opacity'],
+			}),
+		},
 		events: {
-			onVisibleChange: (event) => {
-				visible = event;
-			},
+			onVisibleChange: (v) => (visible = v),
 		},
 	});
 </script>
 
-{#if !state.hidden}
-	<div role="alert" class="flex alert {state.className}" use:transitionDirective>
+{#if !alertWidget.state.hidden}
+	<div role="alert" class="flex alert alert-{type}" use:alertWidget.directives.directive>
 		{@render children()}
-		{#if state.dismissible}
-			<button class="btn btn-sm btn-circle btn-ghost ms-auto" onclick={api.close} aria-label={state.ariaCloseButtonLabel}>
+		{#if dismissible}
+			<button class="btn btn-sm btn-circle btn-ghost ms-auto" onclick={() => alertWidget.api.hide()} aria-label={ariaCloseButtonLabel}>
 				{@html closeIconSvg}
 			</button>
 		{/if}
