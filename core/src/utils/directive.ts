@@ -2,7 +2,7 @@ import type {ReadableSignal} from '@amadeus-it-group/tansu';
 import {asReadable, batch, readable, writable} from '@amadeus-it-group/tansu';
 import {BROWSER} from 'esm-env';
 import type {AttributeValue, Directive, DirectivesAndOptParam, SSRHTMLElement, StyleKey, StyleValue} from '../types';
-import {addEvent, bindAttribute, bindClassName, bindStyle} from './internal/dom';
+import {addEvent, bindAttribute, bindClassName, bindStyle} from './dom';
 import {noop} from './internal/func';
 import {ssrHTMLElement, ssrHTMLElementAttributesAndStyle} from './internal/ssrHTMLElement';
 import {toReadableStore} from './stores';

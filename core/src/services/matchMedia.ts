@@ -1,6 +1,6 @@
 import {readable, type ReadableSignal} from '@amadeus-it-group/tansu';
 import {BROWSER} from 'esm-env';
-import {addEvent} from '../utils/internal/dom';
+import {addEvent} from '../utils/dom';
 
 /**
  * Create a store tracking the state of a {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia | matchMedia} query.

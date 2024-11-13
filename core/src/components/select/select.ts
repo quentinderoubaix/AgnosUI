@@ -10,7 +10,7 @@ import type {NavManagerItemConfig} from '../../services/navManager';
 import {createNavManager} from '../../services/navManager';
 import type {Directive, PropsConfig, Widget} from '../../types';
 import {bindDirective, createAttributesDirective, mergeDirectives} from '../../utils/directive';
-import {generateId} from '../../utils/internal/dom';
+import {generateId} from '../../utils/dom';
 import {noop} from '../../utils/internal/func';
 import {bindableDerived, bindableProp, stateStores, writablesForProps} from '../../utils/stores';
 import type {WidgetsCommonPropsAndState} from '../commonProps';

@@ -1,7 +1,6 @@
 import {afterEach, beforeEach, describe, expect, test, vi} from 'vitest';
-import type {Directive} from '../../types';
-import type {TransitionFn, TransitionWidget} from './baseTransitions';
-import {createTransition} from './baseTransitions';
+import type {Directive} from '@agnos-ui/core/types';
+import {createTransition, type TransitionFn, type TransitionWidget} from '@agnos-ui/core/services/transitions/baseTransitions';
 import {createCollapseTransition} from './collapse';
 
 describe('createCollapseTransition', () => {

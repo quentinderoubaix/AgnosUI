@@ -1,8 +1,8 @@
 import type {ReadableSignal, UnsubscribeFunction, UnsubscribeObject} from '@amadeus-it-group/tansu';
-import type {AttributeValue, SSRHTMLElement, StyleKey, StyleValue} from '../../types';
+import type {AttributeValue, SSRHTMLElement, StyleKey, StyleValue} from '../types';
 import {BROWSER} from 'esm-env';
-import {noop} from './func';
-import {isBrowserHTMLElement} from '../directive';
+import {noop} from './internal/func';
+import {isBrowserHTMLElement} from './directive';
 
 /**
  * Returns the common ancestor of the provided DOM elements.

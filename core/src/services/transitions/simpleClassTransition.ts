@@ -1,5 +1,5 @@
 import {createCSSTransition} from './cssTransitions';
-import {addClasses, reflow, removeClasses} from '../../utils/internal/dom';
+import {addClasses, reflow, removeClasses} from '../../utils/dom';
 import type {TransitionFn} from './baseTransitions';
 
 /**

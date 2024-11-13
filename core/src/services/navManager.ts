@@ -1,6 +1,6 @@
 import {computed, type ReadableSignal, writable} from '@amadeus-it-group/tansu';
 import {browserDirective, registrationArray} from '../utils/directive';
-import {computeCommonAncestor} from '../utils/internal/dom';
+import {computeCommonAncestor} from '../utils/dom';
 import {isFocusable} from '../utils/internal/isFocusable';
 import {compareDomOrder} from '../utils/internal/sort';
 import {getTextDirection} from '../utils/internal/textDirection';

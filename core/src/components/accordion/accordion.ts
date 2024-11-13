@@ -7,7 +7,7 @@ import {noop} from '../../utils/internal/func';
 import type {WidgetsCommonPropsAndState} from '../commonProps';
 import {typeBoolean, typeFunction, typeString} from '../../utils/writables';
 import {createAttributesDirective, directiveSubscribe, mergeDirectives, registrationArray} from '../../utils/directive';
-import {generateId} from '../../utils/internal/dom';
+import {generateId} from '../../utils/dom';
 
 /**
  * Adjusts the visibility of accordion items based on the provided open items.

@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, test, vi} from 'vitest';
 import {addEvent, bindAttribute, bindClassName, bindStyle, computeCommonAncestor} from './dom';
-import {assign} from '../../../../common/utils';
+import {assign} from '../../../common/utils';
 import {writable} from '@amadeus-it-group/tansu';
 
 function getAttributes(node: HTMLElement) {
