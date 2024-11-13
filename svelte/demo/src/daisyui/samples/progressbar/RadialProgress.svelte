@@ -2,7 +2,7 @@
 	import {createProgressbar, type ProgressbarProps} from '@agnos-ui/svelte-headless/components/progressbar';
 	import {callWidgetFactory} from '@agnos-ui/svelte-headless/config';
 
-	let props: Partial<ProgressbarProps> = $props();
+	let {className, ...props}: Partial<ProgressbarProps> & {className: string} = $props();
 
 	const {
 		state,
@@ -10,7 +10,9 @@
 	} = callWidgetFactory({
 		factory: createProgressbar,
 		widgetName: 'progressbar',
-		props,
+		get props() {
+			return {...props};
+		},
 		enablePatchChanged: true,
 	});
 
@@ -21,6 +23,6 @@
 	});
 </script>
 
-<div use:ariaDirective class="radial-progress {state.className}" style="--thickness: 0.4rem; --value:{state.percentage};">
+<div use:ariaDirective class="radial-progress {className}" style="--thickness: 0.4rem; --value:{state.percentage};">
 	{percentFormat.format(state.percentage / 100)}
 </div>

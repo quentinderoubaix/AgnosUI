@@ -15,7 +15,7 @@ import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<progress
 		class="progress"
-		[class]="state.className()"
+		[class]="className()"
 		[auUse]="directives.ariaDirective"
 		[attr.value]="state.value()"
 		[attr.max]="state.max()"

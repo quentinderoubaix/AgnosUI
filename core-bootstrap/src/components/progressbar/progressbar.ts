@@ -4,6 +4,7 @@ import type {ConfigValidator, SlotContent, Widget, WidgetFactory, WidgetSlotCont
 import {createTypeEnum, typeBoolean, typeString} from '@agnos-ui/core/utils/writables';
 import {extendWidgetProps} from '@agnos-ui/core/services/extendWidget';
 import {BS_CONTEXTUAL_CLASSES, type BSContextualClass} from '../../types';
+import type {WidgetsCommonPropsAndState} from '../commonProps';
 
 export * from '@agnos-ui/core/components/progressbar';
 
@@ -13,7 +14,7 @@ export * from '@agnos-ui/core/components/progressbar';
  */
 export interface ProgressbarContext extends WidgetSlotContext<ProgressbarWidget> {}
 
-interface ProgressbarExtraProps {
+interface ProgressbarExtraProps extends WidgetsCommonPropsAndState {
 	/**
 	 * Global template for the Progressbar.
 	 */
@@ -70,6 +71,7 @@ const defaultConfigExtraProps: ProgressbarExtraProps = {
 	striped: false,
 	animated: false,
 	type: undefined,
+	className: '',
 };
 
 const configValidator: ConfigValidator<ProgressbarExtraProps> = {
@@ -79,6 +81,7 @@ const configValidator: ConfigValidator<ProgressbarExtraProps> = {
 	type: createTypeEnum([undefined, ...BS_CONTEXTUAL_CLASSES]),
 	structure: undefined,
 	children: undefined,
+	className: typeString,
 };
 
 /**

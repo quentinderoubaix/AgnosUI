@@ -18,7 +18,6 @@ describe(`Progressbar`, () => {
 	test(`should create progressbar with a default state`, () => {
 		expect(state).toEqual({
 			ariaLabel: 'Progressbar',
-			className: '',
 			finished: false,
 			max: 100,
 			min: 0,

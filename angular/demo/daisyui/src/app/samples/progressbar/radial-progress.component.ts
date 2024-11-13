@@ -15,7 +15,7 @@ import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 	imports: [UseDirective],
 	template: ` <div
 		class="radial-progress"
-		[class]="state.className()"
+		[class]="className()"
 		[style.--thickness]="'0.4rem'"
 		[style.--value]="state.percentage()"
 		[auUse]="directives.ariaDirective"

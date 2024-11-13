@@ -4,7 +4,7 @@ import {useDirective} from '@agnos-ui/react-headless/utils/directive';
 import classNames from 'classnames';
 import {useMemo, type CSSProperties} from 'react';
 
-export function RadialProgress(props: Partial<ProgressbarProps>) {
+export function RadialProgress({className, ...props}: Partial<ProgressbarProps> & {className?: string}) {
 	const {state, directives} = useWidgetWithConfig(createProgressbar, props, 'progressbar');
 
 	const percentFormat = useMemo(
@@ -21,7 +21,7 @@ export function RadialProgress(props: Partial<ProgressbarProps>) {
 		['--value']: state.percentage,
 	} as CSSProperties;
 	return (
-		<div className={classNames('radial-progress', state.className)} style={style} {...useDirective(directives.ariaDirective)}>
+		<div className={classNames('radial-progress', className)} style={style} {...useDirective(directives.ariaDirective)}>
 			{percentFormat.format(state.percentage / 100)}
 		</div>
 	);

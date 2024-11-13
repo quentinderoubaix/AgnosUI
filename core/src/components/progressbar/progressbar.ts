@@ -3,10 +3,9 @@ import {typeFunction, typeNumber, typeString} from '../../utils/writables';
 import {stateStores, writablesForProps} from '../../utils/stores';
 import type {ConfigValidator, Directive, PropsConfig, Widget} from '../../types';
 import {computed} from '@amadeus-it-group/tansu';
-import type {WidgetsCommonPropsAndState} from '../commonProps';
 import {createAttributesDirective} from '../../utils/directive';
 
-interface ProgressbarCommonPropsAndState extends WidgetsCommonPropsAndState {
+interface ProgressbarCommonPropsAndState {
 	/**
 	 * The minimum value.
 	 *
@@ -93,7 +92,6 @@ const defaultConfig: ProgressbarProps = {
 	max: 100,
 	value: 0,
 	ariaLabel: 'Progressbar',
-	className: '',
 	ariaValueTextFn: () => undefined,
 };
 
@@ -110,7 +108,6 @@ const configValidator: ConfigValidator<ProgressbarProps> = {
 	max: typeNumber,
 	value: typeNumber,
 	ariaLabel: typeString,
-	className: typeString,
 	ariaValueTextFn: typeFunction,
 };
 
