@@ -5,13 +5,12 @@ import {clamp, isNumber} from '../../utils/internal/checks';
 import {typeBoolean, typeFunction, typeNumber, typeString} from '../../utils/writables';
 import type {ConfigValidator, PropsConfig, Widget, Directive} from '../../types';
 import {noop} from '../../utils/internal/func';
-import type {WidgetsCommonPropsAndState} from '../commonProps';
 import {createAttributesDirective} from '../../utils/directive';
 
 /**
  * Interface representing the common properties and state for a pagination component.
  */
-interface PaginationCommonPropsAndState extends WidgetsCommonPropsAndState {
+interface PaginationCommonPropsAndState {
 	/**
 	 * The current page.
 	 *
@@ -364,7 +363,6 @@ const defaultConfig: PaginationProps = {
 	ariaLastLabel: 'Action link for last page',
 	ariaEllipsisLabel: 'Ellipsis page element',
 	ariaLiveLabel: (currentPage: number) => `Current page is ${currentPage}`,
-	className: '',
 	pageLink: (_page: number) => PAGE_LINK_DEFAULT,
 };
 
@@ -393,7 +391,6 @@ const configValidator: ConfigValidator<PaginationProps> = {
 	ariaNextLabel: typeString,
 	ariaLastLabel: typeString,
 	ariaLiveLabel: typeFunction,
-	className: typeString,
 	pageLink: typeFunction,
 	ariaEllipsisLabel: typeString,
 };
@@ -610,6 +607,7 @@ export function createPagination(config?: PropsConfig<PaginationProps>): Paginat
 					'aria-disabled': computed(() => (nextDisabled$() ? 'true' : undefined)),
 				},
 				classNames: {
+					// TODO remove all classNames from directives in core ?
 					'au-last': true,
 				},
 			})),

@@ -3,8 +3,8 @@ import {extendWidgetProps} from '../../services/extendWidget';
 import type {ConfigValidator, Directive, PropsConfig, Widget} from '../../types';
 import {createAttributesDirective, directiveSubscribe} from '../../utils/directive';
 import {typeBoolean, typeNumberInRangeFactory} from '../../utils/writables';
-import type {CommonAlertApi, CommonAlertDirectives, CommonAlertProps, CommonAlertState, CommonAlertWidget} from '../alert/common';
-import {createCommonAlert, getCommonAlertDefaultConfig} from '../alert/common';
+import type {CommonAlertApi, CommonAlertDirectives, CommonAlertProps, CommonAlertState, CommonAlertWidget} from './common';
+import {createCommonAlert, getCommonAlertDefaultConfig} from './common';
 
 interface ToastExtraProps {
 	/**
