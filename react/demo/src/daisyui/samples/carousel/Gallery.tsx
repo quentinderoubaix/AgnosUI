@@ -87,7 +87,7 @@ export const Gallery = ({
 
 	return (
 		<div ref={refMainContainer} className="grid grid-flow-row max-h-dvh">
-			<div className="overflow-hidden relative cursor-grab active:cursor-grabbing" {...useDirective(mainCarouselDirectives.emblaDirective)}>
+			<div className="overflow-hidden relative cursor-grab active:cursor-grabbing" {...useDirective(mainCarouselDirectives.carouselDirective)}>
 				<div className="flex max-h-full">
 					{photosWithLoadState.map((photoWithLoadState, index) => (
 						<ImageSlide
@@ -132,7 +132,7 @@ export const Gallery = ({
 					</div>
 				)}
 			</div>
-			<div className="overflow-hidden relative mt-1 mb-2" {...useDirective(thumbDirectives.emblaDirective)}>
+			<div className="overflow-hidden relative mt-1 mb-2" {...useDirective(thumbDirectives.carouselDirective)}>
 				<div className="grid grid-flow-col auto-cols-max gap-2 mx-1 my-1">
 					{photos.map(({thumbnail}, index) => (
 						<div key={index} className="content-center">

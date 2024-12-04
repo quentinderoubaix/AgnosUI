@@ -5,7 +5,6 @@ import type {EmblaCarouselType, EmblaPluginType, EmblaPluginsType} from 'embla-c
 import EmblaCarousel from 'embla-carousel';
 import {computed, writable} from '@amadeus-it-group/tansu';
 import {createTypeEnum, typeArray, typeBoolean, typeNumber, typeStringOrNull} from '../../utils/writables';
-
 interface EmblaOptions {
 	/**
 	 * Align the slides relative to the carousel viewport
@@ -106,12 +105,14 @@ export interface CarouselState {
 export interface CarouselApi {
 	/**
 	 * Scroll to the previous snap point if possible.
+	 * @param jump scroll instantly
 	 */
-	scrollPrev: () => void;
+	scrollPrev: (jump?: boolean) => void;
 	/**
 	 * Scroll to the next snap point if possible.
+	 * @param jump scroll instantly
 	 */
-	scrollNext: () => void;
+	scrollNext: (jump?: boolean) => void;
 	/**
 	 * Scroll to a snap point by index
 	 * @param index the snap point index
@@ -129,9 +130,9 @@ export interface CarouselApi {
  */
 export interface CarouselDirectives {
 	/**
-	 * the embla directive
+	 * the carousel directive
 	 */
-	emblaDirective: Directive;
+	carouselDirective: Directive;
 }
 /**
  * Represents a carousel widget with specific properties, state, API, and directives.
@@ -200,6 +201,9 @@ export function createCarousel(config?: PropsConfig<CarouselProps>): CarouselWid
 		},
 		patch,
 	] = writablesForProps(defaultConfig, config, configValidator);
+	// TODO export most of the code below into its own function, that can be re-used by core-bootstrap.
+	// goal is to make sure
+
 	let emblaApi: EmblaCarouselType | undefined;
 
 	const scrolling$ = writable(false);
@@ -233,11 +237,11 @@ export function createCarousel(config?: PropsConfig<CarouselProps>): CarouselWid
 		}),
 		patch,
 		api: {
-			scrollPrev: () => {
-				emblaApi?.scrollPrev?.();
+			scrollPrev: (jump?: boolean) => {
+				emblaApi?.scrollPrev?.(jump);
 			},
-			scrollNext: () => {
-				emblaApi?.scrollNext?.();
+			scrollNext: (jump?: boolean) => {
+				emblaApi?.scrollNext?.(jump);
 			},
 			scrollTo: (index: number, jump?: boolean) => {
 				emblaApi?.scrollTo?.(index, jump);
@@ -245,7 +249,7 @@ export function createCarousel(config?: PropsConfig<CarouselProps>): CarouselWid
 			plugins: () => emblaApi?.plugins(),
 		},
 		directives: {
-			emblaDirective: bindDirective(
+			carouselDirective: bindDirective(
 				browserDirective((element: HTMLElement, {options, plugins}: {options: EmblaOptions; plugins: EmblaPluginType[]}) => {
 					if (emblaApi) {
 						throw new Error('Only one Embla directive can be attached per carousel widget !');

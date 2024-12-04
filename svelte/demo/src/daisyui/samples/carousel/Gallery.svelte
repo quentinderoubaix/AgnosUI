@@ -29,7 +29,7 @@
 	// The main Carousel
 	const {
 		state: mainCarouselState,
-		directives: {emblaDirective},
+		directives: {carouselDirective},
 		api: {scrollNext, scrollPrev, scrollTo},
 	} = callWidgetFactory({
 		factory: createCarousel,
@@ -38,7 +38,7 @@
 
 	// The Thumbnail Carousel
 	const {
-		directives: {emblaDirective: thumbDirective},
+		directives: {carouselDirective: thumbDirective},
 		api: {scrollTo: thumbScrollTo},
 	} = callWidgetFactory({
 		factory: createCarousel,
@@ -80,7 +80,7 @@
 </script>
 
 <div bind:this={mainContainer} class="grid grid-flow-row max-h-dvh">
-	<div class="overflow-hidden relative cursor-grab active:cursor-grabbing" use:emblaDirective>
+	<div class="overflow-hidden relative cursor-grab active:cursor-grabbing" use:carouselDirective>
 		<div class="flex max-h-full">
 			{#each photosWithLoadState as { src, alt, sources, loadRequested }, index (index)}
 				<GalleryImage {src} {alt} {sources} {loadRequested} {aspectRatio} toShow={Math.abs(mainCarouselState.selectedScrollSnap - index) <= 1} />

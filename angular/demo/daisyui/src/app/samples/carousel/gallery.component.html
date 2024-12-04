@@ -1,5 +1,5 @@
 <div #mainContainer class="grid grid-flow-row max-h-dvh">
-	<div class="overflow-hidden relative cursor-grab active:cursor-grabbing" [auUse]="mainCarouselDirectives.emblaDirective">
+	<div class="overflow-hidden relative cursor-grab active:cursor-grabbing" [auUse]="mainCarouselDirectives.carouselDirective">
 		<div class="flex max-h-full">
 			@for (photoWithLoadState of photosWithLoadState(); track photoWithLoadState; let index = $index) {
 				<div class="relative basis-full min-w-0 shrink-0 grow-0 flex justify-center">
@@ -45,7 +45,7 @@
 			</div>
 		}
 	</div>
-	<div class="overflow-hidden relative mt-1 mb-2" [auUse]="thumbCarouselDirectives.emblaDirective">
+	<div class="overflow-hidden relative mt-1 mb-2" [auUse]="thumbCarouselDirectives.carouselDirective">
 		<div class="grid grid-flow-col auto-cols-max gap-2 mx-1 my-1">
 			@for (photo of photos(); track photo; let index = $index) {
 				<div class="content-center">

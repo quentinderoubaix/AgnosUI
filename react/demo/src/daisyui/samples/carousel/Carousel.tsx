@@ -22,12 +22,12 @@ export function Carousel<Item>(
 	);
 	const {
 		state,
-		directives: {emblaDirective},
+		directives: {carouselDirective},
 		api: {scrollPrev, scrollNext, scrollTo},
 	} = useWidgetWithConfig(createCarousel, {...props, plugins, container: '.container'}, 'carousel');
 	const Slide = props.slide;
 	return (
-		<div className="overflow-hidden relative cursor-grab active:cursor-grabbing flex flex-col-reverse" {...useDirective(emblaDirective)}>
+		<div className="overflow-hidden relative cursor-grab active:cursor-grabbing flex flex-col-reverse" {...useDirective(carouselDirective)}>
 			{props.withNavIndicators && (
 				<div className="flex w-full justify-center gap-2 py-2 cursor-auto">
 					{props.items.map((_, index) => (

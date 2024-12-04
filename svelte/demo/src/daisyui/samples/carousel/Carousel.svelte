@@ -25,7 +25,7 @@
 
 	const {
 		state,
-		directives: {emblaDirective},
+		directives: {carouselDirective},
 		api: {scrollNext, scrollPrev, scrollTo},
 	} = callWidgetFactory({
 		factory: createCarousel,
@@ -42,7 +42,7 @@
 	const onpointerdown = (event: PointerEvent) => event.preventDefault();
 </script>
 
-<div class="overflow-hidden relative cursor-grab active:cursor-grabbing flex flex-col-reverse" use:emblaDirective>
+<div class="overflow-hidden relative cursor-grab active:cursor-grabbing flex flex-col-reverse" use:carouselDirective>
 	{#if withNavIndicators}
 		<div class="flex w-full justify-center gap-2 py-2 cursor-auto">
 			{#each items as _, index}

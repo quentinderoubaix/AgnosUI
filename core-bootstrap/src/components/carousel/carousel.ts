@@ -1,55 +1,69 @@
-import type {Directive, PropsConfig, Widget, WidgetFactory} from '@agnos-ui/core/types';
-import type {CarouselProps as CoreProps, CarouselState} from '@agnos-ui/core/components/carousel';
+import type {ConfigValidator, SlotContent, Widget, WidgetFactory, WidgetSlotContext} from '@agnos-ui/core/types';
+import type {CarouselProps as CoreProps, CarouselState as CoreState, CarouselApi, CarouselDirectives} from '@agnos-ui/core/components/carousel';
+import {extendWidgetProps} from '@agnos-ui/core/services/extendWidget';
 import {createCarousel as createCoreCarousel} from '@agnos-ui/core/components/carousel';
+import {typeBoolean} from '@agnos-ui/core/utils/writables';
 
 export * from '@agnos-ui/core/components/carousel';
 
 /**
+ * Represents the context for a Carousel slide.
+ */
+export interface SlideContext extends WidgetSlotContext<CarouselWidget> {
+	/**
+	 * index of the slide
+	 */
+	index: number;
+}
+
+interface CarouselExtraProps {
+	/**
+	 * If `true`, 'previous' and 'next' navigation arrows will be visible on the slide.
+	 */
+	showNavigationArrows: boolean;
+	/**
+	 * If `true`, navigation indicators at the bottom of the slide will be visible.
+	 */
+	showNavigationIndicators: boolean;
+	/**
+	 * Template for the Carousel.
+	 */
+	slide: SlotContent<CarouselContext>;
+}
+interface FilteredCarouselProps extends Omit<CoreProps, 'align' | 'axis' | 'container' | 'containScroll'> {}
+
+/**
  * Represents the properties for the carousel component.
  */
-export interface CarouselProps extends Omit<CoreProps, 'align' | 'axis' | 'container' | 'containScroll' | 'plugins'> {}
+export interface CarouselProps extends FilteredCarouselProps, CarouselExtraProps {}
 
 /**
- * Represents the API for a carousel component.
+ * Represents the state of a carousel component.
  */
-export interface CarouselApi {
-	/**
-	 * Select previous slide.
-	 */
-	prev: () => void;
-	/**
-	 * Select next slide.
-	 */
-	next: () => void;
-	/**
-	 * Select slide
-	 * @param index the snap point index
-	 * @param jump scroll instantly
-	 */
-	select: (index: number, jump?: boolean) => void;
-}
+export interface CarouselState extends CoreState, CarouselExtraProps {}
 
-/**
- * Represents the directives for a carousel component.
- */
-export interface CarouselDirectives {
-	/**
-	 * TODO
-	 */
-	carouselDirective: Directive;
-}
 /**
  * Represents a carousel widget with specific properties, state, API, and directives.
  */
 export type CarouselWidget = Widget<CarouselProps, CarouselState, CarouselApi, CarouselDirectives>;
 
-const defaultConfigCarousel: CarouselProps = {
+const defaultConfigExtraProps: CarouselExtraProps = {
+	showNavigationArrows: true,
+	showNavigationIndicators: true,
+};
+const extraPropsValidator: ConfigValidator<CarouselExtraProps> = {
+	showNavigationArrows: typeBoolean,
+	showNavigationIndicators: typeBoolean,
+};
+
+const defaultConfigCarousel: Omit<CoreProps, 'align' | 'axis' | 'container' | 'containScroll'> = {
 	direction: 'ltr',
 	dragFree: false,
 	dragThreshold: 10,
 	duration: 25,
 	inViewThreshold: 0,
 	loop: false,
+	plugins: [],
 	skipSnaps: false,
 };
 
@@ -60,6 +74,7 @@ const defaultConfigCarousel: CarouselProps = {
 export function getCarouselDefaultConfig(): CarouselProps {
 	return {
 		...defaultConfigCarousel,
+		...defaultConfigExtraProps,
 	};
 }
 
@@ -68,25 +83,4 @@ export function getCarouselDefaultConfig(): CarouselProps {
  * @param config - an optional carousel config
  * @returns a CarouselWidget
  */
-export const createCarousel: WidgetFactory<CarouselWidget> = (config?: PropsConfig<CarouselProps>) => {
-	const coreWidget = createCoreCarousel({
-		...(config ?? {}),
-		props: {
-			...(config?.props ?? {}),
-			container: '.carousel-container',
-		},
-	});
-	return {
-		stores: coreWidget.stores,
-		state$: coreWidget.state$,
-		patch: coreWidget.patch,
-		api: {
-			prev: coreWidget.api.scrollPrev,
-			next: coreWidget.api.scrollNext,
-			select: coreWidget.api.scrollTo,
-		},
-		directives: {
-			carouselDirective: coreWidget.directives.emblaDirective,
-		},
-	};
-};
+export const createCarousel: WidgetFactory<CarouselWidget> = extendWidgetProps(createCoreCarousel, defaultConfigExtraProps, extraPropsValidator);
