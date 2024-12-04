@@ -168,6 +168,7 @@
 	},
 	"peerDependencies": {
 		"@amadeus-it-group/tansu": "^1.0.0",
+		"embla-carousel-autoplay": "^8.5.1",
 		"esm-env": "^1.2.1",
 		"svelte": "^5.3.1"
 	},

@@ -40,6 +40,11 @@ export const componentsMetadata: Metadata = {
 			children: 'This is an alert',
 		},
 	},
+	Carousel: {
+		status: 'beta',
+		since: 'v0.6.0',
+		type: 'bootstrap',
+	},
 	Collapse: {
 		status: 'beta',
 		since: 'v0.5.0',
