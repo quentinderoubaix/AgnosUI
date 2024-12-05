@@ -3,8 +3,13 @@ import type {ConfigValidator, Directive, PropsConfig, Widget} from '../../types'
 import {bindDirective, browserDirective} from '../../utils/directive';
 import type {EmblaCarouselType, EmblaPluginType, EmblaPluginsType} from 'embla-carousel';
 import EmblaCarousel from 'embla-carousel';
+import type {ReadableSignal} from '@amadeus-it-group/tansu';
 import {computed, writable} from '@amadeus-it-group/tansu';
 import {createTypeEnum, typeArray, typeBoolean, typeNumber, typeStringOrNull} from '../../utils/writables';
+
+/**
+ * Represents the Embla carousel options
+ */
 interface EmblaOptions {
 	/**
 	 * Align the slides relative to the carousel viewport
@@ -97,6 +102,10 @@ export interface CarouselState {
 	 * selected scroll snap
 	 */
 	selectedScrollSnap: number;
+	/**
+	 * all slides nodes inside the carousel container
+	 */
+	slideNodes: HTMLElement[];
 }
 
 /**
@@ -178,6 +187,112 @@ const configValidator: ConfigValidator<CarouselProps> = {
 };
 
 /**
+ * An Embla Carousel widget factory.
+ *
+ * @internal
+ * @param options$ - the store of Embla options
+ * @param plugins$ - the store of Embla plugins
+ * @returns the Embla carousel widget
+ */
+export function createEmblaCarousel(
+	options$: ReadableSignal<Partial<EmblaOptions>>,
+	plugins$?: ReadableSignal<EmblaPluginType[]>,
+): {
+	directive: Directive;
+	stores: {
+		scrolling$: ReadableSignal<boolean>;
+		slidesInView$: ReadableSignal<number[]>;
+		canScrollPrev$: ReadableSignal<boolean>;
+		canScrollNext$: ReadableSignal<boolean>;
+		selectedScrollSnap$: ReadableSignal<number>;
+		slideNodes$: ReadableSignal<HTMLElement[]>;
+	};
+	api: CarouselApi;
+} {
+	let emblaApi: EmblaCarouselType | undefined;
+
+	const scrolling$ = writable(false);
+	const slidesInView$ = writable<number[]>([]);
+	const canScrollPrev$ = writable(false);
+	const canScrollNext$ = writable(false);
+	const selectedScrollSnap$ = writable(0);
+	const slideNodes$ = writable<HTMLElement[]>([]);
+
+	const directiveArgs$ = computed(() => ({
+		options: options$(),
+		plugins: plugins$ ? plugins$() : [],
+	}));
+
+	return {
+		directive: bindDirective(
+			browserDirective((element: HTMLElement, {options, plugins}: {options: Partial<EmblaOptions>; plugins: EmblaPluginType[]}) => {
+				if (emblaApi) {
+					throw new Error('Only one Embla directive can be attached per carousel widget !');
+				}
+				emblaApi = EmblaCarousel(element, options, plugins);
+				emblaApi.on('scroll', () => {
+					scrolling$.set(true);
+				});
+				emblaApi.on('settle', () => {
+					scrolling$.set(false);
+				});
+				emblaApi.on('slidesInView', (api) => {
+					slidesInView$.set(api.slidesInView());
+				});
+				emblaApi.on('select', (api) => {
+					canScrollNext$.set(api.canScrollNext());
+					canScrollPrev$.set(api.canScrollPrev());
+					selectedScrollSnap$.set(api.selectedScrollSnap());
+				});
+				emblaApi.on('reInit', (api) => {
+					canScrollNext$.set(api.canScrollNext());
+					canScrollPrev$.set(api.canScrollPrev());
+					scrolling$.set(false);
+					selectedScrollSnap$.set(api.selectedScrollSnap());
+					slideNodes$.set(api.slideNodes());
+				});
+				emblaApi.on('slidesChanged', (api) => {
+					slideNodes$.set(api.slideNodes());
+				});
+				canScrollNext$.set(emblaApi.canScrollNext());
+				canScrollPrev$.set(emblaApi.canScrollPrev());
+				slideNodes$.set(emblaApi.slideNodes());
+				return {
+					update: ({options, plugins}: {options: Partial<EmblaOptions>; plugins: EmblaPluginType[]}) => {
+						emblaApi!.reInit(options, plugins);
+					},
+					destroy: () => {
+						emblaApi?.destroy();
+						emblaApi = undefined;
+					},
+				};
+			}),
+			directiveArgs$,
+		),
+		stores: {
+			scrolling$,
+			slidesInView$,
+			canScrollPrev$,
+			canScrollNext$,
+			selectedScrollSnap$,
+			slideNodes$,
+		},
+		api: {
+			scrollPrev: (jump?: boolean) => {
+				emblaApi?.scrollPrev?.(jump);
+			},
+			scrollNext: (jump?: boolean) => {
+				emblaApi?.scrollNext?.(jump);
+			},
+			scrollTo: (index: number, jump?: boolean) => {
+				emblaApi?.scrollTo?.(index, jump);
+			},
+			plugins: () => emblaApi?.plugins(),
+		},
+	};
+}
+
+/**
  * Create an CarouselWidget with given config props
  * @param config - an optional carousel config
  * @returns a CarouselWidget
@@ -201,16 +316,6 @@ export function createCarousel(config?: PropsConfig<CarouselProps>): CarouselWid
 		},
 		patch,
 	] = writablesForProps(defaultConfig, config, configValidator);
-	// TODO export most of the code below into its own function, that can be re-used by core-bootstrap.
-	// goal is to make sure
-
-	let emblaApi: EmblaCarouselType | undefined;
-
-	const scrolling$ = writable(false);
-	const slidesInView$ = writable([] as number[]);
-	const canScrollPrev$ = writable(false);
-	const canScrollNext$ = writable(false);
-	const selectedScrollSnap$ = writable(0);
 
 	const emblaOptions$ = computed(() => ({
 		align: align$(),
@@ -226,72 +331,17 @@ export function createCarousel(config?: PropsConfig<CarouselProps>): CarouselWid
 		skipSnaps: skipSnaps$(),
 	}));
 
+	const emblaCarousel = createEmblaCarousel(emblaOptions$, plugins$);
+
 	return {
 		...stateStores({
-			scrolling$,
-			slidesInView$,
-			canScrollNext$,
-			canScrollPrev$,
-			selectedScrollSnap$,
+			...emblaCarousel.stores,
 			...stateProps,
 		}),
 		patch,
-		api: {
-			scrollPrev: (jump?: boolean) => {
-				emblaApi?.scrollPrev?.(jump);
-			},
-			scrollNext: (jump?: boolean) => {
-				emblaApi?.scrollNext?.(jump);
-			},
-			scrollTo: (index: number, jump?: boolean) => {
-				emblaApi?.scrollTo?.(index, jump);
-			},
-			plugins: () => emblaApi?.plugins(),
-		},
+		api: emblaCarousel.api,
 		directives: {
-			carouselDirective: bindDirective(
-				browserDirective((element: HTMLElement, {options, plugins}: {options: EmblaOptions; plugins: EmblaPluginType[]}) => {
-					if (emblaApi) {
-						throw new Error('Only one Embla directive can be attached per carousel widget !');
-					}
-					emblaApi = EmblaCarousel(element, options, plugins);
-					emblaApi.on('scroll', () => {
-						scrolling$.set(true);
-					});
-					emblaApi.on('settle', () => {
-						scrolling$.set(false);
-					});
-					emblaApi.on('slidesInView', (api) => {
-						slidesInView$.set(api.slidesInView());
-					});
-					emblaApi.on('select', (api) => {
-						canScrollNext$.set(api.canScrollNext());
-						canScrollPrev$.set(api.canScrollPrev());
-						selectedScrollSnap$.set(api.selectedScrollSnap());
-					});
-					emblaApi.on('reInit', (api) => {
-						canScrollNext$.set(api.canScrollNext());
-						canScrollPrev$.set(api.canScrollPrev());
-						scrolling$.set(false);
-						selectedScrollSnap$.set(api.selectedScrollSnap());
-					});
-					canScrollNext$.set(emblaApi.canScrollNext());
-					canScrollPrev$.set(emblaApi.canScrollPrev());
-					return {
-						update: ({options, plugins}: {options: EmblaOptions; plugins: EmblaPluginType[]}) => {
-							emblaApi!.reInit(options, plugins);
-						},
-						destroy: () => {
-							emblaApi?.destroy();
-							emblaApi = undefined;
-						},
-					};
-				}),
-				computed(() => ({
-					options: emblaOptions$(),
-					plugins: plugins$(),
-				})),
-			),
+			carouselDirective: emblaCarousel.directive,
 		},
 	};
 }

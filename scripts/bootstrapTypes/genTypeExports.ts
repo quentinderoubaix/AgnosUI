@@ -108,7 +108,8 @@ for (const component of components) {
 			!btsExport.name.endsWith('CommonPropsAndState') &&
 			!btsExport.name.endsWith('ExtraProps') &&
 			!btsExport.name.startsWith('Common') &&
-			!btsExport.name.startsWith('Extra'),
+			!btsExport.name.startsWith('Extra') &&
+			!btsExport.getJsDocTags().some((tag) => tag.name === 'internal'),
 	)) {
 		exportNames.add(bootstrapExport.name);
 		const node = bootstrapExport.getDeclarations()![0];

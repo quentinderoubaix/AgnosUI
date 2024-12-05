@@ -1,3 +1,4 @@
 export * from './carousel.gen';
 import Carousel from './Carousel.svelte';
-export {Carousel};
+import Slide from './Slide.svelte';
+export {Carousel, Slide};

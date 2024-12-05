@@ -68,7 +68,7 @@
 				class="btn btn-sm md:btn-md btn-circle opacity-75 hover:opacity-100"
 				{onpointerdown}
 				disabled={!state.canScrollPrev}
-				onclick={scrollPrev}
+				onclick={() => scrollPrev()}
 				aria-label="Go to previous slide"
 			>
 				{@html previousSvg}
@@ -77,7 +77,7 @@
 				class="btn btn-sm md:btn-md btn-circle opacity-75 hover:opacity-100"
 				{onpointerdown}
 				disabled={!state.canScrollNext}
-				onclick={scrollNext}
+				onclick={() => scrollNext()}
 				aria-label="Go to next slide"
 			>
 				{@html nextSvg}
