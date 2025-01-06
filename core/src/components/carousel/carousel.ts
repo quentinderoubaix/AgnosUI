@@ -177,7 +177,12 @@ export interface CarouselSlideProps extends CarouselSlideCommonPropsAndState {}
 /**
  * Represents the state for a carousel slide.
  */
-export interface CarouselSlideState extends CarouselSlideCommonPropsAndState {}
+export interface CarouselSlideState extends CarouselSlideCommonPropsAndState {
+	/**
+	 * `true` if the slide is selected
+	 */
+	selected: boolean;
+}
 
 /**
  * Represents the directives for a carousel slide.
@@ -382,8 +387,10 @@ export function createCarouselSlide(
 	const _autoId$ = computed(() => generateId());
 	const id$ = computed(() => _dirtyId$() || _autoId$());
 
+	const selected$ = computed(() => selectedId$() === id$());
+
 	return {
-		...stateStores({id$}),
+		...stateStores({id$, selected$}),
 		patch,
 		api: {
 			select: () => select(id$()),
@@ -392,7 +399,7 @@ export function createCarouselSlide(
 			slideDirective: createAttributesDirective(() => ({
 				attributes: {
 					id: id$,
-					'aria-hidden': computed(() => selectedId$() === id$() || undefined),
+					'aria-hidden': computed(() => !selected$() || undefined),
 				},
 				classNames: {
 					'au-carousel-slide': true,
@@ -460,7 +467,7 @@ export function createCarousel(config?: PropsConfig<CarouselProps>): CarouselWid
 							slideWidgets$().findIndex((slide) => slide.stores.id$() === id),
 							jump,
 						),
-					computed(() => slideWidgets$()[emblaCarousel.stores.selectedScrollSnap$()].stores.id$()),
+					computed(() => slideWidgets$()[emblaCarousel.stores.selectedScrollSnap$()]?.stores?.id$?.() ?? ''),
 					config,
 				);
 				slide.directives.slideDirective = mergeDirectives(

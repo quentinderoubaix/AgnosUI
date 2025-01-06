@@ -7,7 +7,6 @@
 	let {children, ...props}: Partial<CarouselSlideProps> & {children: Snippet} = $props();
 
 	const {registerSlide} = getCarouselApiContext();
-	console.log(registerSlide);
 	const {
 		directives: {slideDirective},
 	} = callWidgetFactory({

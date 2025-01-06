@@ -194,7 +194,7 @@ export const createCarousel: WidgetFactory<CarouselWidget> = (config?: PropsConf
 							slideWidgets$().findIndex((slide) => slide.stores.id$() === id),
 							jump,
 						),
-					computed(() => slideWidgets$()[emblaCarousel.stores.selectedScrollSnap$()].stores.id$()),
+					computed(() => slideWidgets$()[emblaCarousel.stores.selectedScrollSnap$()]?.stores?.id$?.() ?? ''),
 					config,
 				);
 				slide.directives.slideDirective = mergeDirectives(
