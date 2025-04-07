@@ -300,8 +300,7 @@ export class CarouselComponent<SlideData extends {id: string}> extends BaseWidge
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createCarousel,
+			callWidgetFactory(createCarousel, {
 				widgetName: 'carousel',
 				afterInit: (widget) => useDirectiveForHost(widget.directives.root),
 				defaultConfig: {

@@ -19,8 +19,7 @@ export class AccordionComponent extends BaseWidgetDirective<AccordionWidget> {
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createAccordion,
+			callWidgetFactory(createAccordion, {
 				widgetName: 'accordion',
 				events: {
 					onItemShown: (id) => this.itemShown.emit(id),

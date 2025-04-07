@@ -514,8 +514,7 @@ export class PaginationComponent extends BaseWidgetDirective<PaginationWidget> {
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createPagination,
+			callWidgetFactory(createPagination, {
 				widgetName: 'pagination',
 				defaultConfig: {
 					structure: paginationDefaultSlotStructure,

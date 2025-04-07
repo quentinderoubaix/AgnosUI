@@ -25,8 +25,7 @@ export class SliderComponent extends BaseWidgetDirective<SliderWidget> {
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createSlider,
+			callWidgetFactory(createSlider, {
 				widgetName: 'slider',
 				events: {
 					onValuesChange: (event) => {

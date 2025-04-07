@@ -260,8 +260,7 @@ export class AccordionItemComponent extends BaseWidgetDirective<AccordionItemWid
 
 	constructor() {
 		super(
-			callWidgetFactory<AccordionItemWidget>({
-				factory: (arg) => inject(AccordionDirective).api.registerItem(arg),
+			callWidgetFactory<AccordionItemWidget>((arg) => inject(AccordionDirective).api.registerItem(arg), {
 				defaultConfig: {
 					structure: accordionItemDefaultSlotStructure,
 				},
@@ -421,8 +420,7 @@ export class AccordionDirective extends BaseWidgetDirective<AccordionWidget> {
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createAccordion,
+			callWidgetFactory(createAccordion, {
 				widgetName: 'accordion',
 				events: {
 					onItemShown: (id) => this.itemShown.emit(id),

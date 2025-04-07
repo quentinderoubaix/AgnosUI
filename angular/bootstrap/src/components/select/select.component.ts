@@ -259,8 +259,7 @@ export class SelectComponent<Item> extends BaseWidgetDirective<SelectWidget<Item
 
 	constructor() {
 		super(
-			callWidgetFactory<SelectWidget<Item>>({
-				factory: createSelect,
+			callWidgetFactory<SelectWidget<Item>>(createSelect, {
 				widgetName: 'select',
 				events: {
 					onOpenChange: (event) => this.openChange.emit(event),

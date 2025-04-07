@@ -225,8 +225,7 @@ export class ToastComponent extends BaseWidgetDirective<ToastWidget> {
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createToast,
+			callWidgetFactory(createToast, {
 				widgetName: 'toast',
 				defaultConfig: {
 					structure: toastDefaultSlotStructure,

@@ -35,8 +35,7 @@ export class ToastComponent extends BaseWidgetDirective<ToastWidget> {
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createToast,
+			callWidgetFactory(createToast, {
 				widgetName: 'toast',
 				events: {onVisibleChange: (v) => this.visible.set(v), onShown: () => this.shown.emit(), onHidden: () => this.hidden.emit()},
 			}),

@@ -35,8 +35,7 @@ export class PaginationComponent extends BaseWidgetDirective<PaginationWidget> {
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createPagination,
+			callWidgetFactory(createPagination, {
 				widgetName: 'pagination',
 				events: {
 					onPageChange: (page: number) => this.page.set(page),

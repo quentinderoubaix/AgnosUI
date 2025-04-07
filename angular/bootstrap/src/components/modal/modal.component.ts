@@ -310,8 +310,7 @@ export class ModalComponent<Data> extends BaseWidgetDirective<ModalWidget<Data>>
 
 	constructor() {
 		super(
-			callWidgetFactory<ModalWidget<Data>>({
-				factory: createModal,
+			callWidgetFactory<ModalWidget<Data>>(createModal, {
 				widgetName: 'modal',
 				defaultConfig: {
 					header: modalDefaultSlotHeader,

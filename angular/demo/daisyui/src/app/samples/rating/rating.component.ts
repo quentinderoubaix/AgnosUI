@@ -20,8 +20,7 @@ export class RatingComponent extends BaseWidgetDirective<RatingWidget> implement
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createRating,
+			callWidgetFactory(createRating, {
 				widgetName: 'rating',
 				events: {
 					onHover: (rating) => this.hover.emit(rating),

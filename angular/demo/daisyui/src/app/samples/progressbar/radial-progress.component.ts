@@ -32,8 +32,7 @@ export class RadialProgressComponent extends BaseWidgetDirective<ProgressbarWidg
 
 	constructor() {
 		super(
-			callWidgetFactory({
-				factory: createProgressbar,
+			callWidgetFactory(createProgressbar, {
 				widgetName: 'progressbar',
 			}),
 		);
